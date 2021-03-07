@@ -4,7 +4,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.UUIDGenerator;
 
-import app.entity.Product;
+import app.entities.Product;
 
 import java.io.Serializable;
 
