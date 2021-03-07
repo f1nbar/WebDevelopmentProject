@@ -4,27 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import repository.ProductRepository;
+
+import app.repositories.ProductRepository;
 
 @Controller
 public class ProductController {
 
-    ProductRepository productRepository;
-
     @Autowired
-    public ProductController (ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
-
-    @GetMapping(value = "/")
-    public String getProducts(){
-        return "index.html";
-    }
-
-    @GetMapping(value = "/products/{id}")
-    public String viewProduct(){
-        return "product.html";
-    }
+    ProductRepository productRepository;
 
     @PostMapping(value = "/products/add")
     public String addProduct(){
