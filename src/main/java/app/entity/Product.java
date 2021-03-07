@@ -10,7 +10,7 @@ public class Product {
 
     @Id
     @GeneratedValue(generator = "SkuGenerator", strategy = GenerationType.IDENTITY)
-    @GenericGenerator(name = "SkuGenerator", strategy = "app.entity.SkuGenerator")
+    @GenericGenerator(name = "SkuGenerator", strategy = "app.services.SkuGenerator")
     protected String id;
     private String productName;
     private int price;

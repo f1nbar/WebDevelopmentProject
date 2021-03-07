@@ -1,8 +1,11 @@
-package app.entity;
+package app.services;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.UUIDGenerator;
+
+import app.entity.Product;
+
 import java.io.Serializable;
 
 public class SkuGenerator extends UUIDGenerator {
