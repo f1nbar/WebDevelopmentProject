@@ -1,28 +1,19 @@
 package app.controllers;
 
-import org.springframework.web.bind.annotation.RestController;
-
 import app.entities.User;
 import app.repositories.UserRepository;
 import app.services.UserService;
 import app.services.UserValidator;
 
-
-import java.security.Principal;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class UserController {
@@ -44,23 +35,17 @@ public class UserController {
 
     @GetMapping("/account")
     public String account(Model model, HttpServletRequest req) {
-        
-        
-       
-       
+
         String userName = req.getUserPrincipal().getName();
 
         System.out.println(userName);
 
-
         User user = null;
 
-        if(!userName.isBlank()) {
-        user = userRepository.findByUsername(userName);
+        if (!userName.isBlank()) {
+            user = userRepository.findByUsername(userName);
         }
 
-       
-        
         model.addAttribute("user", user);
 
         return "account";
@@ -91,17 +76,16 @@ public class UserController {
     }
 
     @GetMapping("/welcome")
-    public String welcome(Model model,HttpServletRequest req) {
+    public String welcome(Model model, HttpServletRequest req) {
 
         model.addAttribute("name", req.getUserPrincipal().getName());
 
         return "welcome";
     }
 
+    @GetMapping("/")
+    public String index(Model model, HttpServletRequest req) {
 
-    @GetMapping("/index")
-    public String index(Model model,HttpServletRequest req) {
-
-        return "/";
+        return "index";
     }
 }

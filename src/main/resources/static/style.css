@@ -1,3 +1,13 @@
-body {
-    
+
+
+
+
+nav input.form-control { width: 400px!important; } */
+
+
+.centering {
+
+    text-align: center;
+    border: 1px solid black;
+
 }
