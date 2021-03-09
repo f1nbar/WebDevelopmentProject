@@ -1,0 +1,6 @@
+INSERT INTO product (id, productname, price, isvisible ) VALUES ('BASICS-100','Remazon Basics Blanket', 9.99, TRUE)
+INSERT INTO product (id, productname, price, isvisible ) VALUES ('BASICS-101','Remazon Basics BoomBox', 19.99, TRUE)
+INSERT INTO product (id, productname, price, isvisible ) VALUES ('BASICS-102','Remazon Basics Blaster', 29.99, TRUE)
+INSERT INTO product (id, productname, price, isvisible ) VALUES ('BASICS-103','Remazon Basics Interesting Programming Book', 10.99, TRUE)
+INSERT INTO product (id, productname, price, isvisible ) VALUES ('BASICS-104','Remazon Basics Comfy Pillow', 5.99, TRUE)
+INSERT INTO product (id, productname, price, isvisible ) VALUES ('BASICS-105','Remazon Basics Stylish Shoes 9000', 15.99, TRUE)

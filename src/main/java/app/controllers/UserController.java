@@ -83,9 +83,4 @@ public class UserController {
         return "welcome";
     }
 
-    @GetMapping("/")
-    public String index(Model model, HttpServletRequest req) {
-
-        return "index";
-    }
 }
