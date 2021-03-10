@@ -18,7 +18,7 @@ public class ProductController {
 
     @GetMapping("/")
     public String index(Model model, HttpServletRequest req) {
-        System.out.println(productRepository.findAll().get(0).getId());
+        model.addAttribute("products",productRepository.findAll());
         return "index";
     }
 

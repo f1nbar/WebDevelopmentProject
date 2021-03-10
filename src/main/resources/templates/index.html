@@ -66,6 +66,19 @@
         </div>
       </div>
     </nav>
+    <div class="row">
+    <div class="card-deck" th:each="products : ${products}">
+      <div class="card" style="width: 15rem;">
+        <img class="card-img-top" src="..." alt="Sort out a tasty image">
+        <div class="card-body">
+          <p class="card-title" th:text = "${products.getProductName()}"></p>
+          <hr>
+          <p class="card-text" th:text = "'€' + ${products.getPrice()}"></p>
+          <a href="#" class="btn btn-primary">Add To Cart</a>
+        </div>
+      </div>
+    </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

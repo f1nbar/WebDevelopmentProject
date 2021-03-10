@@ -40,3 +40,13 @@ nav input.form-control { width: 400px!important; } */
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
   }
+
+.card-deck {
+    margin: 20px;
+}
+
+.row {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
