@@ -13,7 +13,7 @@
     <title>Home</title>
   </head>
   <body>
-    <nav class="navbar-custom navbar navbar-expand-lg navbar-dark bg-secondary ">
+    <nav class="navbar-custom navbar navbar-expand-lg navbar-dark">
       <a class="navbar-brand" href="/">Remazon</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbarSupportedContent"
@@ -29,7 +29,7 @@
             <input class="form-control mr-sm-2" type="search"
               placeholder="Search"
               aria-label="Search">
-            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn" type="submit">Search</button>
           </form>
         </div>
 
@@ -74,7 +74,14 @@
           <p class="card-title" th:text = "${products.getProductName()}"></p>
           <hr>
           <p class="card-text" th:text = "'€' + ${products.getPrice()}"></p>
-          <a href="#" class="btn btn-primary">Add To Cart</a>
+          <a href="#" class="btn">Add To Cart</a>
+          <div class="counter">
+            <span class="down" onClick=''>-</span>
+            <label>
+              <input type="text" value="1">
+            </label>
+            <span class="up"  onClick=''>+</span>
+          </div>
         </div>
       </div>
     </div>

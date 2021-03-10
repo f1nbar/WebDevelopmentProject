@@ -50,3 +50,32 @@ nav input.form-control { width: 400px!important; } */
     display: flex;
     justify-content: center;
 }
+
+.navbar-custom {
+    background-color: #E63946;
+}
+
+.btn{
+    background-color: #A8DADC;
+    width: auto;
+}
+
+.counter {
+    float: right;
+}
+.counter input {
+    width: 50px;
+    border: 0;
+    line-height: 30px;
+    font-size: 20px;
+    text-align: center;
+    appearance: none;
+    outline: 0;
+}
+.counter span {
+    display: inline;
+    font-size: 25px;
+    padding: 0;
+    cursor: pointer;
+    user-select: none;
+}
