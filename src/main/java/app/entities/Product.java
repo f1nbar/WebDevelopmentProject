@@ -4,6 +4,7 @@ import app.services.SkuGenerator;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -21,7 +22,18 @@ public class Product {
     @Column(name = "isvisible")
     private boolean isVisible;
 
+    @OneToMany(mappedBy="product")
+    Set<ProductOrder> orders;
+
     public String getId(){ return id;}
+
+    public String getProductId() {
+        return id;
+    }
+
+    public void setProductId(String productId) {
+        this.id = productId;
+    }
 
     public String getProductName() {
         return productName;
@@ -45,6 +57,14 @@ public class Product {
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    public Set<ProductOrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<ProductOrder> orders) {
+        this.orders = orders;
     }
 
     public Product(){
