@@ -39,6 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .permitAll();
 
          http.authorizeRequests().antMatchers("/").permitAll(); //Uncomment to remove all security must comment out other http object
+         http.cors().and().csrf().disable();
+
     }
 
     @Autowired

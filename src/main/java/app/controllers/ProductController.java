@@ -2,7 +2,6 @@ package app.controllers;
 
 import app.entities.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,14 +23,12 @@ public class ProductController {
         return "index";
     }
 
-    @PostMapping(value = "/products/add", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "products/add")
     @ResponseBody
     public String addProduct(@RequestBody Product product, Model model){
-        System.out.println("add");
         productRepository.save(product);
         model.addAttribute("person", productRepository.findAll());
-        return "Added product ID";
-
+        return "added" + product.getProductName();
     }
 
     @GetMapping(value = "products/remove/{id}")

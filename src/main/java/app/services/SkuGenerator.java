@@ -32,10 +32,16 @@ public class SkuGenerator extends SequenceStyleGenerator{
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                int id = rs.getInt("value");
-                String code = valuePrefix + Integer.toString(id);
-                System.out.println("Generated Stock Code: " + code);
-                return code;
+                String sku = rs.getString("value");
+                String separator ="-";
+                int sepPos = sku.indexOf(separator);
+                if (sepPos == -1) {
+                    System.out.println("");
+                }
+                String idSub = sku.substring(sepPos + separator.length());
+                int idNum = Integer.parseInt(idSub) + 1;
+                System.out.println("Generated Stock Code: BASICS-" + idNum);
+                return "BASICS-" + idNum;
             }
 
         } catch (SQLException e) {

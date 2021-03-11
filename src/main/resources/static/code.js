@@ -36,15 +36,12 @@ function createProduct() {
         let inputVisible = true;
     }
     let add = new Product(inputName, inputPrice, inputVisible);
-    console.log(JSON.stringify(add));
-    const oReq = new XMLHttpRequest();
-    oReq.open("POST","/products/add");
-    oReq.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    oReq.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-        }
-    };
-    oReq.send(JSON.stringify(add));
+    const url = "products/add";
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", url, false);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    console.log(xhr.send(JSON.stringify(add)));
+    xhr.send(JSON.stringify(add));
 }
 
 function Product(productName, price, isVisible) {
