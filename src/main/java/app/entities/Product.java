@@ -17,7 +17,7 @@ public class Product {
     @Column(name = "productname")
     private String productName;
     @Column(name = "price")
-    private int price;
+    private float price;
     @Column(name = "isvisible")
     private boolean isVisible;
 
@@ -31,11 +31,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -49,6 +49,12 @@ public class Product {
 
     public Product(){
 
+    }
+
+    public Product(String productName, float price, Boolean isVisible) {
+        this.productName = productName;
+        this.price = price;
+        this.isVisible = isVisible;
     }
 
 }
