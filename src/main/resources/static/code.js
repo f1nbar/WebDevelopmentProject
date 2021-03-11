@@ -20,8 +20,8 @@ function productForm() {
                 "</div>\n" +
                 "  <div class=\"form-group\">\n" +
                 "    <label for=\"exampleFormControlFile1\">Product Image</label>\n" +
-                "    <input type=\"file\" class=\"form-control-file\" id=\"exampleFormControlFile1\">\n" +
-                "  </div>\n" +
+                "    <input type=\"file\" class=\"form-control-file\" id=\"image\" name=\"image\" accept=\"image/png, image/jpeg\" >\n" +
+                "  </div>\n"+
                 "    <button type=\"submit\" class=\"btn\" onclick=\"createProduct()\">Create Product</button>\n" +
                 "</form>\n" +
                 "</div>"
@@ -35,13 +35,23 @@ function createProduct() {
     if (document.getElementById("visible").checked){
         let inputVisible = true;
     }
+    const file = $('#image').get(0).files[0];
+    const newFileName = inputName + "PNG";
+    const formData = new FormData();
+    formData.append('file', file, newFileName);
+
     let add = new Product(inputName, inputPrice, inputVisible);
     const url = "products/add";
     const xhr = new XMLHttpRequest();
     xhr.open("POST", url, false);
     xhr.setRequestHeader('Content-Type', 'application/json');
-    console.log(xhr.send(JSON.stringify(add)));
     xhr.send(JSON.stringify(add));
+
+    const url2 = "products/image";
+    const xhr2 = new XMLHttpRequest();
+    xhr2.open("POST", url, false);
+    xhr2.setRequestHeader('Content-Type', 'multipart/form-data');
+    xhr2.send(formData);
 }
 
 function Product(productName, price, isVisible) {
