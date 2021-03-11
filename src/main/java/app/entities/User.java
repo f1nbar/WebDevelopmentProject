@@ -10,11 +10,14 @@ public class User {
     private String username;
     private String password;
     private String passwordConfirm;
-    private Set < Role > roles;
-    
+    private Set <Role> roles;
+    @OneToMany(mappedBy="customer")
+    private Set<Order> orderHistory;
+    @OneToOne
+    private Order cart;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -56,5 +59,13 @@ public class User {
 
     public void setRoles(Set < Role > roles) {
         this.roles = roles;
+    }
+
+    public Order getCart() {
+        return cart;
+    }
+
+    public void setCart(Order cart) {
+        this.cart = cart;
     }
 }
