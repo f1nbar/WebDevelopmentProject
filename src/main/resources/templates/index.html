@@ -10,6 +10,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
+    <script src="/code.js">
+    </script>
     <title>Home</title>
   </head>
   <body>
@@ -66,13 +68,15 @@
         </div>
       </div>
     </nav>
+    <button class="btn btn" type="button" onclick="productForm()">Add Product</button>
+    <div class="create-product" id="create-product">
+    </div>
     <div class="row">
-    <div class="card-deck" th:each="products : ${products}">
+      <div class="card-deck" th:each="products : ${products}">
       <div class="card" style="width: 15rem;">
-        <img class="card-img-top" th:src="@{/images/{image}.png(image=${products.getId()})}" alt="Sort out a tasty image">
+        <img class="card-img-top" th:src="@{/images/{image}.png(image=${products.getId()})}" alt="Product Image">
         <div class="card-body">
           <p class="card-title" th:text = "${products.getProductName()}"></p>
-          <hr>
           <p class="card-text" th:text = "'€' + ${products.getPrice()}"></p>
           <a href="#" class="btn">Add To Cart</a>
           <div class="counter">

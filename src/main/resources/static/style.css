@@ -79,3 +79,6 @@ nav input.form-control { width: 400px!important; } */
     cursor: pointer;
     user-select: none;
 }
+
+.card-img-top {
+}
