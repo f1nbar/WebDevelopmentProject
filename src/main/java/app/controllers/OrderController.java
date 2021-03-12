@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -62,55 +63,36 @@ public class OrderController {
         return orderHistory;
     }
 
-    @PostMapping("/cart/add/")
-    public @ResponseBody Order addToCart(@RequestParam Long customerId, @RequestParam String productId) {
-        // Insert check for if user is logged in...
-        User customer = userRepository.findById(customerId).get();
-        Order cart = orderRepository.findById(customer.getCart().getOrderId()).get();
-        Product product = productRepository.findById(productId).get();
-        ProductOrder productOrder = new ProductOrder();
-        productOrder.setOrder(cart);
-        productOrder.setProduct(product);
-        productOrderRepository.save(productOrder);
-        return cart;
-    }
-
-    @PostMapping("/cart/remove/")
-    public @ResponseBody String removeFromCart(@RequestParam Long customerId, @RequestParam String productId) {
-    if (userRepository.findById(customerId).isPresent()) {
-        // Insert check for if user is logged in...
-        User customer = userRepository.findById(customerId).get();
-            if (orderRepository.findById(customer.getCart().getOrderId()).isPresent()) {
-                Order cart = orderRepository.findById(customer.getCart().getOrderId()).get();
-                Product product = productRepository.findById(productId).get();
-                productOrderRepository.deleteById(new ProductOrderKey(product.getProductId(), cart.getOrderId()));
-            }
-        }
-        return productId;
-    }
-
     @GetMapping("/checkout")
     public String getCheckout() {
         return "checkout.html";
     }
 
     @PostMapping("/checkout")
-    public @ResponseBody Order postCheckout(@RequestParam int orderId, @RequestParam String address) {
-        Order order = orderRepository.findById(orderId).get();
-        User customer = order.getCustomer();
-        // Move this order to the customers order history and create a new, empty cart
-        if (customer != null) {
-            Order newOrder = new Order();
-            newOrder.setState("Cart");
-            newOrder = orderRepository.save(newOrder);
-            customer.setCart(newOrder);
+    public @ResponseBody String postCheckout(@RequestBody List<String> orderInfo, @RequestParam Long customerId) {
+        String address = orderInfo.get(0);
+        int orderTotal = 0;
+        List<Product> products = new ArrayList<Product>();
+        List<Integer> quantities = new ArrayList<Integer>();
+        for (String str:orderInfo) {
+            if (productRepository.findById(str.split("_")[0]).isPresent()) {
+                Product product = productRepository.findById(str.split("_")[0]).get();
+                quantities.add(Integer.parseInt(str.split("_")[1]));
+                products.add(product);
+                orderTotal += product.getPrice();
+            }
         }
-        // Set the date ordered, address, and state of the order
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
         LocalDateTime now = LocalDateTime.now();
-        order.setDateOrdered(dtf.format(now));
-        order.setAddress(address);
-        order.setState("Confirmed");
-        return orderRepository.save(order);
+        String dateOrdered = dtf.format(now);
+        User customer = userRepository.findById(customerId).get();
+        Order order = new Order(customer, address, "Confirmed", dateOrdered, orderTotal);
+
+        for (int i=0; i<products.size(); i++) {
+            ProductOrder productOrder = new ProductOrder(products.get(i), order, quantities.get(i));
+            productOrderRepository.save(productOrder);
+        }
+
+        return "Success";
     }
 }

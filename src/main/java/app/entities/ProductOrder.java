@@ -22,6 +22,12 @@ class ProductOrder {
     @JoinColumn(name = "order_id")
     Order order;
 
+    public ProductOrder(Product product, Order order, int quantity) {
+        this.product = product;
+        this.order = order;
+        this.quantity = quantity;
+    }
+
     int quantity;
 
     public ProductOrderKey getId() {

@@ -23,6 +23,14 @@ public class Order implements Serializable {
     protected String dateOrdered;
     protected int orderTotal;
 
+    public Order(User customer, String address, String state, String dateOrdered, int orderTotal) {
+        this.customer = customer;
+        this.address = address;
+        this.state = state;
+        this.dateOrdered = dateOrdered;
+        this.orderTotal = orderTotal;
+    }
+
     public int getOrderId() {
         return id;
     }

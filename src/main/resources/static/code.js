@@ -65,6 +65,71 @@ function initCart() {
         row.insertCell(3).innerHTML = "<Button type=\"button\" onclick=\"removeFromCart('" + productId + "')\">Remove</Button>"
     }
 }
+
+function initOrder() {
+    // Get cart info from local storage
+    var cart = JSON.parse(localStorage.getItem("cart"))
+    var orderTable = document.getElementById("orderTable")
+    var total=0
+    for (const productId in cart) {
+        var productInfo = cart[productId]
+        var row = orderTable.insertRow(orderTable.rows.length-1)
+        row.id = "item_" + productId
+        row.insertCell(0).innerHTML = "<img class='orderImage' src='images/" + productId + ".png'>"
+        row.insertCell(1).innerHTML = productInfo.productName
+        row.insertCell(2).innerHTML = productInfo.price
+        row.insertCell(3).innerHTML = productInfo.quantity
+        row.insertCell(4).innerHTML = (productInfo.price*productInfo.quantity)
+        total += (productInfo.price*productInfo.quantity)
+    }
+    document.getElementById("totalVal").innerHTML = total.toFixed(2)
+}
+
+function pay() {
+    if (document.getElementById("AL1").value == ""
+        || document.getElementById("AL2").value == ""
+        || document.getElementById("town").value == ""
+        || document.getElementById("county").value == ""
+    ) {
+        document.getElementById("addressError").innerHTML = "Missing fields"
+    } else {
+        document.getElementById("paymentError").innerHTML = ""
+    }
+    if (document.getElementById("cardNo").value == ""
+            || document.getElementById("month").value == ""
+            || document.getElementById("year").value == ""
+            || document.getElementById("cvc").value == ""
+        ) {
+            document.getElementById("paymentError").innerHTML = "Missing fields"
+        } else {
+            document.getElementById("paymentError").innerHTML = ""
+        }
+
+    if (document.getElementById("AL1").value == ""
+            || document.getElementById("AL2").value == ""
+            || document.getElementById("town").value == ""
+            || document.getElementById("county").value == ""
+        ) {
+            document.getElementById("addressError").innerHTML = "Missing fields"
+        } else {
+            document.getElementById("addressError").innerHTML = ""
+        }
+    // Get address from page
+    var address = ""
+    address += document.getElementById("AL1").value + ",\n"
+    address += document.getElementById("AL2").value + ",\n"
+    address += document.getElementById("town").value + ",\n"
+    address += document.getElementById("county").value
+    // Get items list
+    var cart = JSON.parse(localStorage.getItem("cart"))
+    var items = [address]
+    for (const productId in cart) {
+        quantity = cart[product_id].quantity
+        items.push(productId + "_" + quantity)
+    }
+    console.log(items)
+}
+
 function productForm() {
             document.getElementById("create-product").innerHTML = "<div class=\"title\" id=\"create-product\">\n" +
                 "<script src=\"/code.js\">\n" +
