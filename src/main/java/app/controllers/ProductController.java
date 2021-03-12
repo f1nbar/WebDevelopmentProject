@@ -44,12 +44,13 @@ public class ProductController {
     }
 
 
-    @GetMapping(value = "products/view/{id}")
+    @GetMapping(value = "/products/view/{id}")
     public String view(Model model, HttpServletRequest request) {
         String url = (request.getRequestURI());
         String productID = url.substring(15);
         model.addAttribute("product",productRepository.getOne(productID));
-        return "view";
+        model.addAttribute("products", productRepository.findSuggestions(productRepository.getOne(productID), productRepository));
+        return "view-product";
     }
 
 

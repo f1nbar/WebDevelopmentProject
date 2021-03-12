@@ -2,7 +2,27 @@
 
 
 
-nav input.form-control { width: 400px!important; } */
+nav input.form-control { width: 400px!important; }
+
+@font-face {
+    font-family: "San Francisco";
+    font-weight: 400;
+    src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+}
+
+@font-face {
+    font-family: "San Francisco";
+    font-weight: 700;
+    src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-bold-webfont.woff");
+}
+
+@font-face {
+    font-family: "San Francisco";
+    font-weight: 200;
+    src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-thin-webfont.woff");
+}
+
+*{font-family:"San Francisco";}
 
 
 .centering {
@@ -102,5 +122,80 @@ nav input.form-control { width: 400px!important; } */
     padding: 1rem;
 }
 
-.card-img-top {
+.card-img{
+    width: 100%;
+    height: 100%;
+    display:block;
+    margin:auto;
+    object-fit: scale-down;
 }
+
+.column-container {
+    padding: 20px;
+    height: 70%;
+}
+
+.column-container img {
+    width: 70%;
+    height: 70%;
+    display:block;
+    margin:auto;
+    object-fit: scale-down;
+}
+
+.column-product {
+    width: 50%;
+    float: left;
+    height: 75%;
+}
+
+.price-text {
+    display: inline-block;
+    margin: auto;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.btn-view {
+    float: right;
+    margin-right: 10%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.title-view {
+    padding: 2%;
+}
+
+.card-img-overlay {
+    position:relative;
+}
+
+.card-text {
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    font-size: larger;
+}
+
+.card-title{
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+    top: 10px;
+}
+
+
+.card button {
+    float: none;
+    display: block;
+}
+
+.rowView {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+}
+
+

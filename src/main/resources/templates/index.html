@@ -77,22 +77,17 @@
     <div class="row">
       <div class="card-deck" th:each="products : ${products}">
       <div class="card" style="width: 15rem;">
-        <img class="card-img-top" th:src="@{/images/{image}.png(image=${products.getId()})}" alt="Product Image">
-        <div class="card-body">
-          <a  th:href="@{|products/view/${products.getId()}|}"><p class="card-title" th:text = "${products.getProductName()}"></p></a>
+        <img class="card-img" th:src="@{/images/{image}.png(image=${products.getId()})}" alt="Product Image">
+        <div class="card-img-overlay">
+          <p class="card-title" th:text = "${products.getProductName()}"></p></a>
+          <p class="card-subtitle" th:text = "${products.getProductId()}"></p>
           <p class="card-text" th:text = "'€' + ${products.getPrice()}"></p>
-          <Button type="button" class="btn" th:data1="${products.getId()}"
-             th:data2="${products.getProductName()}"
-             th:data3="${products.getPrice()}"
-             th:onclick="addToCart(this.getAttribute('data1'), this.getAttribute('data2'), this.getAttribute('data3'))">Add To Cart</Button>
-          <div class="counter">
-            <span class="down" onClick=''>-</span>
-            <label>
-              <input type="text" value="1">
-            </label>
-            <span class="up"  onClick=''>+</span>
-          </div>
+          <a  th:href="@{|products/view/${products.getId()}|}" class="stretched-link"></a>
         </div>
+        <Button type="button" class="btn" th:data1="${products.getId()}"
+                th:data2="${products.getProductName()}"
+                th:data3="${products.getPrice()}"
+                th:onclick="addToCart(this.getAttribute('data1'), this.getAttribute('data2'), this.getAttribute('data3'))">Add To Cart</Button>
       </div>
     </div>
     </div>

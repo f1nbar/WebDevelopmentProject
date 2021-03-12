@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <script src="/code.js">
+    </script>
+    <title th:text="${product.productName}"></title>
+</head>
+<body>
+<nav class="navbar-custom navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="/">Remazon</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <form class="form-inline my-0 my-lg-0">
+                <input class="form-control mr-sm-2" type="search"
+                       placeholder="Search"
+                       aria-label="Search">
+                <button class="btn btn" type="submit">Search</button>
+            </form>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end"
+             id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li sec:authorize="!isAuthenticated()" class="nav-item">
+                    <a class="nav-link" href="/registration">Register</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link" href="/account">Account</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="Cart"
+                       role="button" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">
+                        Cart
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Item1</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Item2</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Item3</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="column-container">
+    <H1 class="title-view" th:text="${product.productName}"></H1>
+    <div class="column-product">
+        <img class="image-product" th:src="@{/images/{image}.png(image=${product.getId()})}" alt="Product Image">
+    </div>
+    <div class="column-product">
+        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+            mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+            mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+            mollit anim id est laborum."</p>
+        <p class="price-text" th:text = "'€' + ${product.getPrice()}"></p>
+        <Button type="button" class="btn btn-view" th:data1="${product.getId()}"
+                th:data2="${product.getProductName()}"
+                th:data3="${product.getPrice()}"
+                th:onclick="addToCart(this.getAttribute('data1'), this.getAttribute('data2'), this.getAttribute('data3'))">Add To Cart</Button>
+    </div>
+</div>
+<div class="rowView">
+    <div class="card-deck" th:each="products : ${products}">
+        <div class="card" style="width: 15rem;">
+            <img class="card-img" th:src="@{/images/{image}.png(image=${products.getId()})}" alt="Product Image">
+            <div class="card-img-overlay">
+                <p class="card-title" th:text = "${products.getProductName()}"></p></a>
+                <p class="card-subtitle" th:text = "${products.getProductId()}"></p>
+                <p class="card-text" th:text = "'€' + ${products.getPrice()}"></p>
+                <a  th:href="@{|products/view/${products.getId()}|}" class="stretched-link"></a>
+            </div>
+            <Button type="button" class="btn" th:data1="${products.getId()}"
+                    th:data2="${products.getProductName()}"
+                    th:data3="${products.getPrice()}"
+                    th:onclick="addToCart(this.getAttribute('data1'), this.getAttribute('data2'), this.getAttribute('data3'))">Add To Cart</Button>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
