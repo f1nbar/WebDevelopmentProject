@@ -192,10 +192,13 @@ nav input.form-control { width: 400px!important; }
 }
 
 .rowView {
-    margin: 0 auto;
+    height: auto;
     display: flex;
-    justify-content: center;
     position: absolute;
+    margin: auto;
+    justify-content: center;
+    bottom: 40%;
+    width: 100%;
 }
 
 
