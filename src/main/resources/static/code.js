@@ -3,7 +3,7 @@ function productForm() {
                 "<script src=\"/code.js\">\n" +
                 "    </script>\n" +
                 "<div class=\"formContainer\">\n" +
-                "<form>\n" +
+                "<form id='form1'>\n" +
                 "  <div class=\"form-group\">\n" +
                 "    <label for=\"name\">Product Name</label>\n" +
                 "    <input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Yummy Ice Cream\">\n" +
@@ -18,21 +18,23 @@ function productForm() {
                 "    Visible\n" +
                 "  </label>\n" +
                 "</div>\n" +
+                " </form>\n" +
+                " <form id='form2'>\n" +
                 "  <div class=\"form-group\">\n" +
                 "    <label for=\"exampleFormControlFile1\">Product Image</label>\n" +
                 "    <input type=\"file\" class=\"form-control-file\" id=\"image\" name=\"image\" accept=\"image/png, image/jpeg\" >\n" +
                 "  </div>\n"+
-                "    <button type=\"submit\" class=\"btn\" onclick=\"createProduct()\">Create Product</button>\n" +
+                "    <button type=\"submit\" class=\"btn btn-primary\" onclick=\"submitForms()\">Create Product</button>\n" +
                 "</form>\n" +
                 "</div>"
 
 }
 
-function createProduct() {
+async function createProduct() {
     let inputName = document.getElementById("name").value;
     let inputPrice = document.getElementById("price").value;
     let inputVisible = false;
-    if (document.getElementById("visible").checked){
+    if (document.getElementById("visible").checked) {
         let inputVisible = true;
     }
     const file = $('#image').get(0).files[0];
@@ -43,15 +45,20 @@ function createProduct() {
     let add = new Product(inputName, inputPrice, inputVisible);
     const url = "products/add";
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", url, false);
+    xhr.open("POST", url, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(add));
 
     const url2 = "products/image";
-    const xhr2 = new XMLHttpRequest();
-    xhr2.open("POST", url, false);
-    xhr2.setRequestHeader('Content-Type', 'multipart/form-data');
-    xhr2.send(formData);
+
+    const request = new Request(url2, {
+        method: 'POST',
+        body: formData,
+    });
+
+    fetch(request)
+        .then(res => res.json())
+        .then(res => console.log(res));
 }
 
 function Product(productName, price, isVisible) {
@@ -59,3 +66,9 @@ function Product(productName, price, isVisible) {
     this.price = price;
     this.isVisible = isVisible;
 }
+
+submitForms = function(){
+    document.getElementById("form1").submit();
+    document.getElementById("form2").submit();
+}
+

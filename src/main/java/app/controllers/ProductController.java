@@ -37,12 +37,21 @@ public class ProductController {
         return "added" + product.getProductName();
     }
 
-    @PostMapping(value = "products/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "products/image")
     public String addImage(@RequestParam("image")MultipartFile multipartFile) throws IOException {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         FileUploadUtil.saveFile("/images",fileName,multipartFile);
         return "Success";
     }
+
+
+    @GetMapping(value = "products/view/{id}")
+    public String view(Model model, HttpServletRequest request) {
+        String url = (request.getRequestURI());
+        return "view.html";
+    }
+
+
 
 
 
