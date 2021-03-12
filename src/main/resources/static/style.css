@@ -80,5 +80,27 @@ nav input.form-control { width: 400px!important; } */
     user-select: none;
 }
 
+.cartHeader {
+    font-weight: bold;
+}
+
+.cartItemField {
+    min-width: 15rem;
+}
+
+.cartPriceField {
+    min-width: 5rem;
+}
+
+.cartQuantityField {
+    min-width: 3rem;
+}
+
+.dropdown {
+    left: auto;
+    right: 0.2rem;
+    padding: 1rem;
+}
+
 .card-img-top {
 }
