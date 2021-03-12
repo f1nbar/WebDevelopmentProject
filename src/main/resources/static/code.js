@@ -1,3 +1,70 @@
+function addToCart(productId, productName, price) {
+    // Get cart info from local storage
+    var cart = localStorage.getItem("cart")
+    // Check if cart has been initialised yet
+    if (cart == null)
+        cart = {}
+    else
+        cart = JSON.parse(cart)
+
+    // Check if given item already exists in cart
+    if (cart[productId] == null) {
+        // If not, add it
+        cart[productId] = {
+            id: productId,
+            productName: productName,
+            price: price,
+            quantity: 1
+        }
+        var cartTable = document.getElementById("cartTable")
+        var row = cartTable.insertRow(cartTable.rows.length-1)
+        row.id = "item_" + productId
+        row.insertCell(0).innerHTML = productName
+        row.insertCell(1).innerHTML = price
+        row.insertCell(2).innerHTML = 1
+        row.insertCell(3).innerHTML = "<Button type=\"button\" onclick=\"removeFromCart('" + productId + "')\">Remove</Button>"
+    } else {
+        // If so, increment the items quantity value
+        cart[productId] = {
+            id: productId,
+            productName: productName,
+            price: price,
+            quantity: cart[productId].quantity + 1
+        }
+        var cartTable = document.getElementById("cart")
+        var row = document.getElementById("item_" + productId)
+        row.cells[2].innerHTML = cart[productId].quantity
+    }
+    // Save updated cart info to local storage
+    localStorage.setItem("cart", JSON.stringify(cart))
+    console.log('Added ' + productId + ' to the cart!')
+}
+
+function removeFromCart(productId) {
+    // Get cart info from local storage
+    var cart = JSON.parse(localStorage.getItem("cart"));
+    delete cart[productId];
+    localStorage.setItem("cart", JSON.stringify(cart));
+    // Save updated cart info to local storage
+    document.getElementById("item_" + productId).remove();
+    console.log("Deleted: " + productId)
+}
+
+// Runs when the page loads, initialises the cart tab with cart item information
+function initCart() {
+    // Get cart info from local storage
+    var cart = JSON.parse(localStorage.getItem("cart"))
+    var cartTable = document.getElementById("cartTable")
+    for (const productId in cart) {
+        var productInfo = cart[productId]
+        var row = cartTable.insertRow(cartTable.rows.length-1)
+        row.id = "item_" + productId
+        row.insertCell(0).innerHTML = productInfo.productName
+        row.insertCell(1).innerHTML = productInfo.price
+        row.insertCell(2).innerHTML = productInfo.quantity
+        row.insertCell(3).innerHTML = "<Button type=\"button\" onclick=\"removeFromCart('" + productId + "')\">Remove</Button>"
+    }
+}
 function productForm() {
             document.getElementById("create-product").innerHTML = "<div class=\"title\" id=\"create-product\">\n" +
                 "<script src=\"/code.js\">\n" +

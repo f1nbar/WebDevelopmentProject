@@ -2,7 +2,7 @@
 
 
 
-nav input.form-control { width: 400px!important; }
+nav input.form-control { width: 400px!important; } */
 
 
 .centering {
@@ -19,15 +19,19 @@ nav input.form-control { width: 400px!important; }
 .login-form form {
     margin-bottom: 15px;
     background: #f7f7f7;
-    box-shadow: 0 2px 2px rgb(0 0 0);
+    box-shadow: 0 2px 2px rgb(0 0 0 / 30%);
     padding: 30px;
     width: 340px;
 }
+
+
 
 .container {
     position: relative;
     width: 340px;
 }
+
+
 
 .content {
     position: absolute;
@@ -76,16 +80,27 @@ nav input.form-control { width: 400px!important; }
     user-select: none;
 }
 
-
-.column1 .column2{
-    float: left;
-    width: 50%;
+.cartHeader {
+    font-weight: bold;
 }
 
-
-.rows:after {
-    content: "";
-    display: table;
-    clear: both;
+.cartItemField {
+    min-width: 15rem;
 }
 
+.cartPriceField {
+    min-width: 5rem;
+}
+
+.cartQuantityField {
+    min-width: 3rem;
+}
+
+.dropdown {
+    left: auto;
+    right: 0.2rem;
+    padding: 1rem;
+}
+
+.card-img-top {
+}
