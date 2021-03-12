@@ -10,11 +10,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
-    <script src="/code.js">
-    </script>
     <title>Home</title>
   </head>
-  <body>
+  <body onload="initCart()">
     <nav class="navbar-custom navbar navbar-expand-lg navbar-dark">
       <a class="navbar-brand" href="/">Remazon</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -50,18 +48,23 @@
             <li sec:authorize="isAuthenticated()" class="nav-item">
               <a class="nav-link" href="/account">Account</a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item">
               <a class="nav-link dropdown-toggle" href="#" id="Cart"
-                role="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
+                role="button" data-bs-display="static" data-toggle="dropdown">
                 Cart
               </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Item1</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Item2</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Item3</a>
+              <div class="dropdown-menu dropdown" aria-labelledby="navbarDropdown">
+                <h2>Your Cart</h2>
+                <table id="cartTable">
+                  <tr class="cartHeader">
+                    <td class="cartItemField">Item</td>
+                    <td class="cartPriceField">Price</td>
+                    <td class="cartQuantityField">Quantity</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3"><button type="button" class="btn btn-danger">Checkout</button></td>
+                  </tr>
+                </table>
               </div>
             </li>
           </ul>
@@ -76,9 +79,12 @@
       <div class="card" style="width: 15rem;">
         <img class="card-img-top" th:src="@{/images/{image}.png(image=${products.getId()})}" alt="Product Image">
         <div class="card-body">
-          <p class="card-title" th:text = "${products.getProductName()}"></p>
+          <a  th:href="@{|products/view/${products.getId()}|}"><p class="card-title" th:text = "${products.getProductName()}"></p></a>
           <p class="card-text" th:text = "'€' + ${products.getPrice()}"></p>
-          <a href="#" class="btn">Add To Cart</a>
+          <Button type="button" class="btn" th:data1="${products.getId()}"
+             th:data2="${products.getProductName()}"
+             th:data3="${products.getPrice()}"
+             th:onclick="addToCart(this.getAttribute('data1'), this.getAttribute('data2'), this.getAttribute('data3'))">Add To Cart</Button>
           <div class="counter">
             <span class="down" onClick=''>-</span>
             <label>
@@ -86,7 +92,6 @@
             </label>
             <span class="up"  onClick=''>+</span>
           </div>
-          <a  th:href="@{|products/view/${products.getId()}|}" class="stretched-link"></a>
         </div>
       </div>
     </div>
@@ -97,5 +102,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/code.js"></script>
   </body>
 </html>
