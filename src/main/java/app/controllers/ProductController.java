@@ -3,7 +3,6 @@ package app.controllers;
 import app.entities.Product;
 import app.services.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -48,7 +47,9 @@ public class ProductController {
     @GetMapping(value = "products/view/{id}")
     public String view(Model model, HttpServletRequest request) {
         String url = (request.getRequestURI());
-        return "view.html";
+        String productID = url.substring(15);
+        model.addAttribute("product",productRepository.getOne(productID));
+        return "view";
     }
 
 
@@ -56,7 +57,7 @@ public class ProductController {
 
 
 
-    @GetMapping(value = "products/remove/{id}")
+    @GetMapping(value = "/products/remove/{id}")
     public String removeProduct(){
        return "Removed Product ID:";
     }
