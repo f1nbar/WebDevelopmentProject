@@ -26,14 +26,18 @@ public class ProductController {
 
     @GetMapping("/")
     public String index(Model model, HttpServletRequest req) {
-        List<Product> products = productRepository.findAll();
-        List<Product> visibleProducts = new ArrayList<>();
-        for (int i = 0; i < productRepository.count(); i++) {
-            if(products.get(i).isVisible()){
-                visibleProducts.add(products.get(i));
+        if(req.isUserInRole("ROLE_ADMIN")) {
+            List<Product> products = productRepository.findAll();
+            List<Product> visibleProducts = new ArrayList<>();
+            for (int i = 0; i < productRepository.count(); i++) {
+                if (products.get(i).isVisible()) {
+                    visibleProducts.add(products.get(i));
+                }
             }
+            model.addAttribute("products", visibleProducts);
         }
-        model.addAttribute("products", visibleProducts);
+        else
+            model.addAttribute("products", productRepository.findAll()); //if admin we can see hidden products
         return "index";
     }
 

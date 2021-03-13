@@ -18,4 +18,4 @@ INSERT INTO product (id, productname, price, isvisible ) VALUES ('BASICS-116','R
 INSERT INTO product (id, productname, price, isvisible ) VALUES ('BASICS-117','Remazon Basics Good Sense of  Humour', 122.99, TRUE)
 INSERT INTO product (id, productname, price, isvisible ) VALUES ('BASICS-118','Remazon Basics Best Ice Cream', 2.99, TRUE)
 INSERT INTO product (id, productname, price, isvisible ) VALUES ('BASICS-119','Remazon Basics Watch', 2000.99, TRUE)
-INSERT INTO product (id, productname, price, isvisible ) VALUES ('BASICS-120','Remazon Basics Easter Egg Limited Edition', 13.99, TRUE)
+INSERT INTO product (id, productname, price, isvisible ) VALUES ('BASICS-120','Remazon Basics Easter Egg Limited Edition', 13.99, FALSE)
