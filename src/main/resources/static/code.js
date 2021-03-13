@@ -124,10 +124,29 @@ function pay() {
     var cart = JSON.parse(localStorage.getItem("cart"))
     var items = [address]
     for (const productId in cart) {
-        quantity = cart[product_id].quantity
+        quantity = cart[productId].quantity
         items.push(productId + "_" + quantity)
     }
     console.log(items)
+    //Get user details
+    var userRequest = new XMLHttpRequest()
+    var user = {}
+    userRequest.onreadystatechange = () => {
+        if (userRequest.readyState != 4) return;
+        user = JSON.parse(userRequest.responseText)
+        console.log(user)
+        var checkoutRequest = new XMLHttpRequest()
+        checkoutRequest.onreadystatechange = () => {
+            if (checkoutRequest.readyState != 4) return;
+            // TODO: Show Pop Up
+            console.log(checkoutRequest.responseText)
+        }
+        checkoutRequest.open('POST', "/checkout/?customerId=" + user.id)
+        checkoutRequest.setRequestHeader('Content-type', 'application/json')
+        checkoutRequest.send(items)
+    }
+    userRequest.open('GET', "/user/details")
+    userRequest.send()
 }
 
 function productForm() {
