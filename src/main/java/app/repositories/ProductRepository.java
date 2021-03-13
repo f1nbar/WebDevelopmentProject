@@ -28,12 +28,13 @@ public interface ProductRepository extends JpaRepository<Product, String> {
         String idSub = currentId.substring(sepPos + separator.length());
         int block = Integer.parseInt(idSub);
         Random rand = new Random();
-
-        for (int i = 0; i < 3; i++) {
+        while (suggestions.size() < 3){
             int randomNum = ThreadLocalRandom.current().nextInt(101, (100 + size));
             String idRandom = "BASICS-" + randomNum;
             Product addProduct = productRepository.getOne(idRandom);
-            suggestions.add(addProduct);
+            if(!suggestions.contains(addProduct) && addProduct.isVisible()) {
+                suggestions.add(addProduct);
+            }
             System.out.println(addProduct.getProductName());
         }
 
