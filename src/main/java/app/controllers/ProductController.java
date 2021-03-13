@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Controller
@@ -24,7 +26,14 @@ public class ProductController {
 
     @GetMapping("/")
     public String index(Model model, HttpServletRequest req) {
-        model.addAttribute("products",productRepository.findAll());
+        List<Product> products = productRepository.findAll();
+        List<Product> visibleProducts = new ArrayList<>();
+        for (int i = 0; i < productRepository.count(); i++) {
+            if(products.get(i).isVisible()){
+                visibleProducts.add(products.get(i));
+            }
+        }
+        model.addAttribute("products", visibleProducts);
         return "index";
     }
 
