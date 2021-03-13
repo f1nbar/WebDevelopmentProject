@@ -107,9 +107,8 @@
 </div>
 <div id="hide-form">
     <form class="form-inline view-form">
-        <label for="name"></label><input type="text" class="form-control" id="name" th:value="${product.getProductName()}">
-        <label for="price"></label><input type="text" class="form-control" id="price" th:value="${product.getPrice()}">
-        <label for="visible"></label><input type="checkbox" class="form-check-input" id="visible" th:value="${product.isVisible()}">
+        <label for="price">Change Price</label><input type="text" class="form-control" id="price" th:value="${product.getPrice()}">
+        <label for="visible">Change Visibility</label><input type="checkbox" class="form-check-input" id="visible" th:value="${product.isVisible()}">
         <button class="btn btn-admin" type="button" th:data1="${product.getId()}" th:onclick="editProduct(this.getAttribute('data1'))">Save</button>
     </form>
         </div>
