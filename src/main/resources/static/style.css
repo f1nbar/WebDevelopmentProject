@@ -234,4 +234,13 @@ nav input.form-control { width: 400px!important; }
     color: #F1FAEE;
 }
 
+.view-form {
+    padding: 5%;
+    justify-content: center;
+}
+
+#hide-form {
+    display: none;
+}
+
 

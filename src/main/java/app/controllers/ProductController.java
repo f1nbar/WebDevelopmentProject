@@ -62,9 +62,9 @@ public class ProductController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "products/edit/{id}")
+    @GetMapping(value = "/products/edit/{id}")
     public String editProduct(){
-        return "Edited Product ID";
+        return "redirect:/";
     }
 
 }

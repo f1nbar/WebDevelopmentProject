@@ -96,8 +96,20 @@
                 th:onclick="addToCart(this.getAttribute('data1'), this.getAttribute('data2'), this.getAttribute('data3'))">Add To Cart</Button>
     </div>
     <a type="button" class="btn btn-admin" th:href="@{|/products/remove/${product.getId()}|}">Remove Product</a>
-    <button type="button" class="btn btn-admin">Edit Product</button>
+    <button onclick="toggle('hide-form')" type="button" class="btn btn-admin" >Edit Product</button>
 </div>
+<div id="hide-form">
+    <form class="form-inline view-form">
+        <label for="edit-name"></label><input type="text" class="form-control" id="edit-name" th:value="${product.getProductName()}">
+        <button class="btn btn-admin" type="button">Change Name</button>
+        <label for="edit-price"></label><input type="text" class="form-control" id="edit-price" th:value="${product.getPrice()}">
+        <button class="btn btn-admin" type="button">Change Price</button>
+        <label for="edit-isvisible"></label><input type="checkbox" class="form-check-input" id="edit-isvisible" th:value="${product.isVisible()}">
+        <button class="btn btn-admin" type="button">Change Visibility</button>
+    </form>
+        </div>
+
+<div class="edit-product" id="edit-product"></div>
 <div class="rowView">
     <div class="card-deck card-deck-view" th:each="products : ${products}">
         <div class="card" style="width: 15rem;">
