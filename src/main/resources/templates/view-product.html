@@ -95,7 +95,7 @@
                 th:data3="${product.getPrice()}"
                 th:onclick="addToCart(this.getAttribute('data1'), this.getAttribute('data2'), this.getAttribute('data3'))">Add To Cart</Button>
     </div>
-    <button type="button" class="btn btn-admin">Remove Product</button>
+    <a type="button" class="btn btn-admin" th:href="@{|/products/remove/${product.getId()}|}">Remove Product</a>
     <button type="button" class="btn btn-admin">Edit Product</button>
 </div>
 <div class="rowView">

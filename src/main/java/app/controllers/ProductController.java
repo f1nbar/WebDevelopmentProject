@@ -53,14 +53,13 @@ public class ProductController {
         return "view-product";
     }
 
-
-
-
-
-
     @GetMapping(value = "/products/remove/{id}")
-    public String removeProduct(){
-       return "Removed Product ID:";
+    public String removeProduct(HttpServletRequest request){
+        String url = (request.getRequestURI());
+        String productID = url.substring(17);
+        productRepository.deleteById(productID);
+        System.out.println("deleted" + productID);
+        return "redirect:/";
     }
 
     @GetMapping(value = "products/edit/{id}")
