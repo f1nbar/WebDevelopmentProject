@@ -14,63 +14,65 @@
     <title>Login</title>
   </head>
   <body class="loginPage">
-    <nav class="navbar-custom navbar navbar-expand-lg navbar-dark bg-secondary">
-      <a class="navbar-brand" href="/">Remazon</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <nav class="navbar-custom navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="/">Remazon</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      <button class="btn btn-admin btn-add" type="button" onclick="productForm()">Add Product</button>
+    </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <div class="collapse navbar-collapse justify-content-end"
-          id="navbarSupportedContent">
-          <form class="form-inline my-0 my-lg-0">
-            <input class="searchbox-input form-control" id="searchbox-input" type="search" onclick="window.location.href='/'"
-                   placeholder="Case Sensitive Search...Be Precise ;)"
-                   aria-label="Search" onkeyup="Search()">
-          </form>
-        </div>
-
-        <div class="collapse navbar-collapse justify-content-end"
-          id="navbarSupportedContent">
-          <ul class="navbar-nav">
-            <li sec:authorize="!isAuthenticated()" class="nav-item">
-              <a class="nav-link" href="/login">Login</a>
-            </li>
-            <li sec:authorize="!isAuthenticated()" class="nav-item">
-              <a class="nav-link" href="/registration">Register</a>
-            </li>
-            <li sec:authorize="isAuthenticated()" class="nav-item">
-              <a class="nav-link" href="/logout">Logout</a>
-            </li>
-            <li sec:authorize="isAuthenticated()" class="nav-item">
-              <a class="nav-link" href="/account">Account</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="Cart"
-                role="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-                Cart
-              </a>
-              <div class="dropdown-menu dropdown-menu-right"
-                aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Item1</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Item2</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Item3</a>
-              </div>
-            </li>
-          </ul>
-        </div>
+      <div class="collapse navbar-collapse justify-content-end" id ="navbarSupportedContent">
+        <form class="form-inline my-0 my-lg-0">
+          <input class="searchbox-input form-control" id="searchbox-input" type="search"
+                 placeholder="Case Sensitive Search...Be Precise ;)"
+                 aria-label="Search" onkeyup="Search()">
+        </form>
       </div>
-    </nav>
 
+      <div class="collapse navbar-collapse justify-content-end"
+           id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li sec:authorize="!isAuthenticated()" class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li sec:authorize="!isAuthenticated()" class="nav-item">
+            <a class="nav-link" href="/registration">Register</a>
+          </li>
+          <li sec:authorize="isAuthenticated()" class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          <li sec:authorize="isAuthenticated()" class="nav-item">
+            <a class="nav-link" href="/account">Account</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link dropdown-toggle" href="#" id="Cart"
+               role="button" data-bs-display="static" data-toggle="dropdown">
+              Cart
+            </a>
+            <div class="dropdown-menu dropdown" aria-labelledby="navbarDropdown">
+              <h2>Your Cart</h2>
+              <table id="cartTable">
+                <tr class="cartHeader">
+                  <td class="cartItemField">Item</td>
+                  <td class="cartPriceField">Price</td>
+                  <td class="cartQuantityField">Quantity</td>
+                </tr>
+                <tr>
+                  <td colspan="3"><Button onClick="checkout()" class="btn btn-danger">Checkout</Button></td>
+                </tr>
+              </table>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
     <div class="text-center content login-form">
-
       <form action="/login" method="post" class="">
         <h2 class="text-center">Log in</h2>
         <div class="form-group justify-content-center">
@@ -82,7 +84,7 @@
             placeholder="Password" required="required">
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-secondary btn-block">Log in</button>
+          <button type="submit" class="btn">Log in</button>
         </div>
       </form>
       <p class="text-center"><a href="/registration">Create an Account</a></p>

@@ -40,19 +40,21 @@ nav input.form-control { width: 400px!important; }
     margin-bottom: 15px;
     background: #f7f7f7;
     box-shadow: 0 2px 2px rgb(0 0 0 / 30%);
-    padding: 30px;
-    width: 340px;
+    border-radius: 5%;
+    padding: 5%;
 }
 
+
+.login-form div {
+    padding: 10%;
+}
 
 
 .loginPage .container {
     position: relative;
-    width: 340px;
 }
 .regPage .container {
     position: relative;
-    width: 340px;
 }
 
 

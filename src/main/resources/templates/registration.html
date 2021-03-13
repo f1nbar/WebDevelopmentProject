@@ -8,64 +8,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
-    <title>Document</title>
+    <title>Registration</title>
 </head>
 <body class="regPage">
+<nav class="navbar-custom navbar navbar-expand-lg navbar-dark">
+  <a class="navbar-brand" href="/">Remazon</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    <button class="btn btn-admin btn-add" type="button" onclick="productForm()">Add Product</button>
+  </button>
 
-  <nav class="navbar-custom navbar navbar-expand-lg navbar-dark bg-secondary ">
-    <a class="navbar-brand" href="/">Remazon</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-      <div class="collapse navbar-collapse justify-content-end" id ="navbarSupportedContent">
-        <form class="form-inline my-0 my-lg-0">
-          <input class="searchbox-input form-control" id="searchbox-input" type="search" onclick="window.location.href='/'"
-                 placeholder="Case Sensitive Search...Be Precise ;)"
-                 aria-label="Search" onkeyup="Search()">
-        </form>
-      </div>
-
-      <div class="collapse navbar-collapse justify-content-end"
-        id="navbarSupportedContent">
-        <ul class="navbar-nav">
-          <li sec:authorize="!isAuthenticated()" class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
-          </li>
-          <li sec:authorize="!isAuthenticated()" class="nav-item">
-            <a class="nav-link" href="/registration">Register</a>
-          </li>
-          <li sec:authorize="isAuthenticated()" class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
-          </li>
-          <li sec:authorize="isAuthenticated()" class="nav-item">
-            <a class="nav-link" href="/account">Account</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="Cart"
-              role="button" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
-              Cart
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Item1</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Item2</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Item3</a>
-            </div>
-          </li>
-        </ul>
-      </div>
+    <div class="collapse navbar-collapse justify-content-end" id ="navbarSupportedContent">
+      <form class="form-inline my-0 my-lg-0">
+        <input class="searchbox-input form-control" id="searchbox-input" type="search"
+               placeholder="Case Sensitive Search...Be Precise ;)"
+               aria-label="Search" onkeyup="Search()">
+      </form>
     </div>
-  </nav>
 
-</div>
+    <div class="collapse navbar-collapse justify-content-end"
+         id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li sec:authorize="!isAuthenticated()" class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li sec:authorize="!isAuthenticated()" class="nav-item">
+          <a class="nav-link" href="/registration">Register</a>
+        </li>
+        <li sec:authorize="isAuthenticated()" class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        <li sec:authorize="isAuthenticated()" class="nav-item">
+          <a class="nav-link" href="/account">Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link dropdown-toggle" href="#" id="Cart"
+             role="button" data-bs-display="static" data-toggle="dropdown">
+            Cart
+          </a>
+          <div class="dropdown-menu dropdown" aria-labelledby="navbarDropdown">
+            <h2>Your Cart</h2>
+            <table id="cartTable">
+              <tr class="cartHeader">
+                <td class="cartItemField">Item</td>
+                <td class="cartPriceField">Price</td>
+                <td class="cartQuantityField">Quantity</td>
+              </tr>
+              <tr>
+                <td colspan="3"><Button onClick="checkout()" class="btn btn-danger">Checkout</Button></td>
+              </tr>
+            </table>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 <div class="text-center content login-form">
 
@@ -84,14 +87,12 @@
         placeholder=" Confirm Password" required="required">
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-secondary btn-block">Register</button>
+      <button type="submit" class="btn">Register</button>
     </div>
   </form>
   
 </div>
 
-
-</div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
