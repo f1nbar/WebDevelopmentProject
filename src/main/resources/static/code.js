@@ -250,10 +250,26 @@ function Product(id, productName, price, isVisible){
     this.productName = productName;
     this.price = price;
     this.isVisible = isVisible;
-
 }
+
 submitForms = function(){
     document.getElementById("form1").submit();
   //  document.getElementById("form2").submit();
 }
+
+const Search = () => {
+    const input = document.querySelector(".searchbox-input");
+    const cards = document.getElementsByClassName("card");
+    let filter = input.value;
+
+    for (let i = 0; i < cards.length; i++) {
+        let title = cards[i].querySelector(".card-title");
+        if (title.innerText.indexOf(filter) > -1) {
+            cards[i].classList.remove("d-none")
+        } else {
+            cards[i].classList.add("d-none")
+        }
+    }
+}
+
 
