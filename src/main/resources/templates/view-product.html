@@ -95,16 +95,18 @@
                 th:data3="${product.getPrice()}"
                 th:onclick="addToCart(this.getAttribute('data1'), this.getAttribute('data2'), this.getAttribute('data3'))">Add To Cart</Button>
     </div>
+    <button type="button" class="btn btn-admin">Remove Product</button>
+    <button type="button" class="btn btn-admin">Edit Product</button>
 </div>
 <div class="rowView">
-    <div class="card-deck" th:each="products : ${products}">
+    <div class="card-deck card-deck-view" th:each="products : ${products}">
         <div class="card" style="width: 15rem;">
             <img class="card-img" th:src="@{/images/{image}.png(image=${products.getId()})}" alt="Product Image">
             <div class="card-img-overlay">
                 <p class="card-title" th:text = "${products.getProductName()}"></p></a>
                 <p class="card-subtitle" th:text = "${products.getProductId()}"></p>
                 <p class="card-text" th:text = "'€' + ${products.getPrice()}"></p>
-                <a  th:href="@{|products/view/${products.getId()}|}" class="stretched-link"></a>
+                <a  th:href="@{|${products.getId()}|}" class="stretched-link"></a>
             </div>
             <Button type="button" class="btn" th:data1="${products.getId()}"
                     th:data2="${products.getProductName()}"

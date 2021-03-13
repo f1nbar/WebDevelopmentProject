@@ -219,13 +219,19 @@ nav input.form-control { width: 400px!important; }
 }
 
 .rowView {
-    height: auto;
     display: flex;
-    position: absolute;
-    margin: auto;
+    clear: both;
     justify-content: center;
-    bottom: 40%;
-    width: 100%;
+    padding-top: 5%;
+}
+
+.card-deck-view {
+    margin: 50px;
+}
+
+.btn-admin {
+    background-color: #457B9D;
+    color: #F1FAEE;
 }
 
 
