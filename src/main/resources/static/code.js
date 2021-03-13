@@ -221,12 +221,37 @@ async function createProduct() {
     //     .then(res => console.log(res));
 }
 
+function editProduct(id) {
+    console.log(id)
+    let inputName = document.getElementById("name").value;
+    let inputPrice = document.getElementById("price").value;
+    let inputVisible = false;
+    if (document.getElementById("visible").checked) {
+        let inputVisible = true;
+    }
+    let add = new Product(id, inputName, inputPrice, inputVisible);
+    const url = "/products/edit";
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", url, false);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(add));
+
+}
+
+
 function Product(productName, price, isVisible) {
     this.productName = productName;
     this.price = price;
     this.isVisible = isVisible;
 }
 
+function Product(id, productName, price, isVisible){
+    this.id = id;
+    this.productName = productName;
+    this.price = price;
+    this.isVisible = isVisible;
+
+}
 submitForms = function(){
     document.getElementById("form1").submit();
   //  document.getElementById("form2").submit();

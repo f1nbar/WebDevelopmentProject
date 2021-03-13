@@ -62,8 +62,10 @@ public class ProductController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "/products/edit/{id}")
-    public String editProduct(){
+    @PostMapping(value = "/products/edit")
+    public String editProduct(@RequestBody Product product){
+        System.out.println("hello");
+        productRepository.save(product);
         return "redirect:/";
     }
 
