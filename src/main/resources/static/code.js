@@ -184,7 +184,7 @@ function productForm() {
         // "    <label for=\"exampleFormControlFile1\">Product Image</label>\n" +
         // "    <input type=\"file\" class=\"form-control-file\" id=\"image\" name=\"image\" accept=\"image/png, image/jpeg\" >\n" +
         // "  </div>\n"+
-        "    <button type=\"submit\" class=\"btn\" onclick=\"createProduct()\">Create Product</button>\n" +
+        "    <button type=\"submit\" class=\"btn btn-admin\" onclick=\"createProduct()\">Create Product</button>\n" +
         "</form>\n" +
         "</div>"
 
