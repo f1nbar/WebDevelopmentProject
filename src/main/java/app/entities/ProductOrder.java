@@ -1,17 +1,14 @@
 package app.entities;
 
-import app.keys.ProductOrderKey;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
-public
-class ProductOrder {
+public class ProductOrder {
 
-//    @EmbeddedId
-//    ProductOrderKey id;
+    // @EmbeddedId
+    // ProductOrderKey id;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -25,7 +22,8 @@ class ProductOrder {
     @JsonIgnore
     Order order;
 
-    public ProductOrder() { }
+    public ProductOrder() {
+    }
 
     public ProductOrder(Product product, Order order, int quantity) {
         this.product = product;
@@ -67,5 +65,3 @@ class ProductOrder {
         this.quantity = quantity;
     }
 }
-
-

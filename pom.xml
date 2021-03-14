@@ -1,7 +1,7 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <groupId>ie.ucd</groupId>
-    <artifactId>Lab4</artifactId>
+    <artifactId>Remazon</artifactId>
     <version>0.0.1</version>
 
     <parent>

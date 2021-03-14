@@ -7,7 +7,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Set;
 
-
 @Entity
 @Table(name = "product")
 public class Product {
@@ -26,13 +25,13 @@ public class Product {
     private String description;
     
 
-    @OneToMany(mappedBy="product")
+    @OneToMany(mappedBy = "product")
     @JsonIgnore
     Set<ProductOrder> orders;
 
-
-
-    public String getId(){ return id;}
+    public String getId() {
+        return id;
+    }
 
     public String getProductId() {
         return id;
@@ -75,11 +74,15 @@ public class Product {
         this.orders = orders;
     }
 
-    public void setDescription(String description) { this.description = description; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public String getDescription(){ return this.description;}
+    public String getDescription() {
+        return this.description;
+    }
 
-    public Product(){
+    public Product() {
 
     }
 
