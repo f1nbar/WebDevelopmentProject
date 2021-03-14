@@ -1,6 +1,8 @@
 function addToCart(productId, productName, price) {
     // Get cart info from local storage
     var cart = localStorage.getItem("cart")
+    var total = parseInt(localStorage.getItem("total"))
+    var productInfo = {}
     // Check if cart has been initialised yet
     if (cart == null)
         cart = {}
@@ -16,61 +18,119 @@ function addToCart(productId, productName, price) {
             price: price,
             quantity: 1
         }
-        var cartTable = document.getElementById("cartTable")
-        var row = cartTable.insertRow(cartTable.rows.length-1)
+        productInfo = cart[productId]
+        console.log(productInfo)
+        var orderTable = document.getElementById("orderTable")
+        var row = orderTable.insertRow(orderTable.rows.length-1)
         row.id = "item_" + productId
-        row.insertCell(0).innerHTML = productName
-        row.insertCell(1).innerHTML = price
-        row.insertCell(2).innerHTML = 1
-        row.insertCell(3).innerHTML = "<Button type=\"button\" onclick=\"removeFromCart('" + productId + "')\">Remove</Button>"
+        row.insertCell(0).innerHTML = "<img class='orderImage' src='images/" + productId + ".png'>"
+        row.insertCell(1).innerHTML = productInfo.productName
+        row.insertCell(2).innerHTML = productInfo.price
+        var button = document.createElement("button")
+        button.innerHTML = "-"
+        button.setAttribute("onclick", "decItem('" + productId + "')")
+        row.insertCell(3).appendChild(button)
+        row.insertCell(4).innerHTML = productInfo.quantity
+        var button = document.createElement("button")
+        button.innerHTML = "+"
+        button.setAttribute("onclick", "incItem('" + productId + "')")
+        row.insertCell(5).appendChild(button)
+        row.insertCell(6).innerHTML = (productInfo.price*productInfo.quantity).toFixed(2)
+        var button = document.createElement("button")
+        button.innerHTML = "Remove"
+        button.setAttribute("onclick", "removeFromCart('" + productId + "')")
+        row.insertCell(7).appendChild(button)
     } else {
-        // If so, increment the items quantity value
-        cart[productId] = {
-            id: productId,
-            productName: productName,
-            price: price,
-            quantity: cart[productId].quantity + 1
-        }
-        var cartTable = document.getElementById("cart")
-        var row = document.getElementById("item_" + productId)
-        row.cells[2].innerHTML = cart[productId].quantity
+        productInfo = cart[productId]
+        incItem(productId)
     }
     // Save updated cart info to local storage
+    total = parseInt(total + price)
+    localStorage.setItem("total", total)
+    document.getElementById("totalVal").innerHTML = total.toFixed(2)
     localStorage.setItem("cart", JSON.stringify(cart))
     console.log('Added ' + productId + ' to the cart!')
 }
 
 function removeFromCart(productId) {
-    // Get cart info from local storage
+    // Get cart & total info from local storage
+    var cart = JSON.parse(localStorage.getItem("cart"))
+    var total = parseInt(localStorage.getItem("total"))
+    // Remove item and decrement total
+    total = total - parseInt(cart[productId].price*cart[productId].quantity)
+    delete cart[productId]
+    // Save cart and total
+    localStorage.setItem("cart", JSON.stringify(cart))
+    localStorage.setItem("total", total)
+    // Update screen
+    document.getElementById("item_" + productId).remove()
+    document.getElementById("totalVal").innerHTML = total.toFixed(2)
+}
+
+$('.dropdown-menu').click(function(e) {
+    e.stopPropagation();
+});
+
+
+function incItem(productId) {
+    // Get
     var cart = JSON.parse(localStorage.getItem("cart"));
-    delete cart[productId];
-    localStorage.setItem("cart", JSON.stringify(cart));
-    // Save updated cart info to local storage
-    document.getElementById("item_" + productId).remove();
-    console.log("Deleted: " + productId)
+    var total = parseInt(localStorage.getItem("total"))
+    // Edit
+    cart[productId].quantity = cart[productId].quantity + 1
+    total = total + parseInt(cart[productId].price)
+    // Save
+    localStorage.setItem("cart", JSON.stringify(cart))
+    localStorage.setItem("total", total)
+    // Render
+    totalProduct = parseInt(document.getElementById("item_" + productId).cells[6].innerHTML) + parseInt(cart[productId].price)
+    document.getElementById("item_" + productId).cells[6].innerHTML = totalProduct.toFixed(2)
+    document.getElementById("item_" + productId).cells[4].innerHTML = cart[productId].quantity
+    document.getElementById("totalVal").innerHTML = parseInt(total).toFixed(2)
+}
+
+function decItem(productId) {
+    // Get
+    var cart = JSON.parse(localStorage.getItem("cart"));
+    var total = parseInt(localStorage.getItem("total"))
+    // Edit
+    if (cart[productId].quantity == 1) {
+        removeFromCart(productId)
+    } else {
+        cart[productId].quantity = cart[productId].quantity - 1
+        total = total - parseInt(cart[productId].price)
+        // Save
+        localStorage.setItem("cart", JSON.stringify(cart))
+        localStorage.setItem("total", total)
+        // Render
+        totalProduct = parseInt(document.getElementById("item_" + productId).cells[6].innerHTML) - parseInt(cart[productId].price)
+        document.getElementById("item_" + productId).cells[6].innerHTML = totalProduct.toFixed(2)
+        document.getElementById("item_" + productId).cells[4].innerHTML = cart[productId].quantity
+        document.getElementById("totalVal").innerHTML = parseInt(total).toFixed(2)
+    }
 }
 
 // Runs when the page loads, initialises the cart tab with cart item information
-function initCart() {
-    // Get cart info from local storage
-    var cart = JSON.parse(localStorage.getItem("cart"))
-    var cartTable = document.getElementById("cartTable")
-    for (const productId in cart) {
-        var productInfo = cart[productId]
-        var row = cartTable.insertRow(cartTable.rows.length-1)
-        row.id = "item_" + productId
-        row.insertCell(0).innerHTML = productInfo.productName
-        row.insertCell(1).innerHTML = productInfo.price
-        row.insertCell(2).innerHTML = productInfo.quantity
-        row.insertCell(3).innerHTML = "<Button type=\"button\" onclick=\"removeFromCart('" + productId + "')\">Remove</Button>"
-    }
-}
+//function initCart() {
+//    // Get cart info from local storage
+//    var cart = JSON.parse(localStorage.getItem("cart"))
+//    var orderTable = document.getElementById("orderTable")
+//    for (const productId in cart) {
+//        var productInfo = cart[productId]
+//        var row = orderTable.insertRow(orderTable.rows.length-1)
+//        row.id = "item_" + productId
+//        row.insertCell(0).innerHTML = productInfo.productName
+//        row.insertCell(1).innerHTML = productInfo.price
+//        row.insertCell(2).innerHTML = productInfo.quantity
+//        row.insertCell(3).innerHTML = "<Button type=\"button\" onclick=\"removeFromCart('" + productId + "')\">Remove</Button>"
+//    }
+//}
 
 function initOrder() {
     // Get cart info from local storage
     var cart = JSON.parse(localStorage.getItem("cart"))
+    total = 0
     var orderTable = document.getElementById("orderTable")
-    var total=0
     for (const productId in cart) {
         var productInfo = cart[productId]
         var row = orderTable.insertRow(orderTable.rows.length-1)
@@ -78,10 +138,23 @@ function initOrder() {
         row.insertCell(0).innerHTML = "<img class='orderImage' src='images/" + productId + ".png'>"
         row.insertCell(1).innerHTML = productInfo.productName
         row.insertCell(2).innerHTML = productInfo.price
-        row.insertCell(3).innerHTML = productInfo.quantity
-        row.insertCell(4).innerHTML = (productInfo.price*productInfo.quantity)
+        var button = document.createElement("button")
+        button.innerHTML = "-"
+        button.setAttribute("onclick", "decItem('" + productId + "')")
+        row.insertCell(3).appendChild(button)
+        row.insertCell(4).innerHTML = productInfo.quantity
+        var button = document.createElement("button")
+        button.innerHTML = "+"
+        button.setAttribute("onclick", "incItem('" + productId + "')")
+        row.insertCell(5).appendChild(button)
+        row.insertCell(6).innerHTML = (productInfo.price*productInfo.quantity).toFixed(2)
+        var button = document.createElement("button")
+        button.innerHTML = "Remove"
+        button.setAttribute("onclick", "removeFromCart('" + productId + "')")
+        row.insertCell(7).appendChild(button)
         total += (productInfo.price*productInfo.quantity)
     }
+    localStorage.setItem("total", total)
     document.getElementById("totalVal").innerHTML = total.toFixed(2)
 }
 
@@ -219,7 +292,7 @@ function productForm() {
         "    <input type=\"file\" class=\"form-control-file\" id=\"image\" name=\"image\" accept=\"image/png, image/jpeg\" >\n" +
         "<label for=\"imgInp\" class=\"custom-file-upload\">Add Product Picture </label>" +
         "<input id=\"imgInp\"  type=\"file\" name=\"image\" accept=\"image/png, image/jpeg\">" +
-      
+
         "  </div>\n"+
         "    <button class=\"btn btn-admin\" onclick=\"createProduct()\">Create Product</button>\n" +
         "</form>\n" +
@@ -231,7 +304,7 @@ async function createProduct() {
     let inputName = document.getElementById("name").value;
     let inputPrice = document.getElementById("price").value;
     let inputVisible = false;
-    
+
     if (document.getElementById("visible").checked) {
         let inputVisible = true;
     }
@@ -243,7 +316,7 @@ async function createProduct() {
     isVisible: inputVisible
 
     }
-    
+
     // const formData = new FormData();
     // formData.append('file', file, newFileName);
 
@@ -255,7 +328,7 @@ async function createProduct() {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(add));
 
-    
+
     var savedProduct = JSON.parse(xhr.response)
 
     var file = $('#imgInp').get(0).files[0];
@@ -264,12 +337,12 @@ async function createProduct() {
     formData.append('image', file, newFileName);
 
    const url2 = "products/image";
-    
+
     const request = new Request(url2, {
         method: 'POST',
         body: formData,
     });
-    
+
     fetch(request)
 }
 
@@ -297,32 +370,8 @@ function Product(productName, price, isVisible) {
     this.isVisible = isVisible;
 }
 
-
-
-function Product(id, productName, price, isVisible){
-    this.id = id;
-    this.productName = productName;
-    this.price = price;
-    this.isVisible = isVisible;
-}
-
 submitForms = function(){
     document.getElementById("form1").submit();
-  //  document.getElementById("form2").submit();
-}
-
-const Search = () => {
-    const input = document.querySelector(".searchbox-input");
-    const cards = document.getElementsByClassName("card");
-    let filter = input.value;
-
-    for (let i = 0; i < cards.length; i++) {
-        let title = cards[i].querySelector(".card-title");
-        if (title.innerText.indexOf(filter) > -1) {
-            cards[i].classList.remove("d-none")
-        } else {
-            cards[i].classList.add("d-none")
-        }
-    }
+    document.getElementById("form2").submit();
 }
 

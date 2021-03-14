@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./style.css">
     <title>Home</title>
   </head>
-  <body onload="initCart()">
+  <body onload="initOrder()">
     <nav class="navbar-custom navbar navbar-expand-lg navbar-dark">
       <a class="navbar-brand" href="/">Remazon</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -54,25 +54,37 @@
               </a>
               <div class="dropdown-menu dropdown" aria-labelledby="navbarDropdown">
                 <h2>Your Cart</h2>
-                <table id="cartTable">
-                  <tr class="cartHeader">
-                    <td class="cartItemField">Item</td>
-                    <td class="cartPriceField">Price</td>
-                    <td class="cartQuantityField">Quantity</td>
-                  </tr>
+                <table class="table" id="orderTable">
+                  <thead>
                   <tr>
-                    <td colspan="3"><a href="/checkout" class="btn btn-danger">Checkout</a></td>
+                    <th></th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Cost</th>
+                    <th></th>
+                    <th scope="col">#</th>
+                    <th></th>
+                    <th scope="col">Total Cost</th>
+                    <th></th>
                   </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <th scope="row" colspan="6">Total</th>
+                    <td id="totalVal"></td>
+                    <td></td>
+                  </tr>
+                  </tbody>
                 </table>
+                <a href="/checkout" class="btn btn-danger">Checkout</a>
               </div>
             </li>
              <li sec:authorize="isAuthenticated()" class="avatar rounded-circle">
             <div th:with="path=${#authentication.getPrincipal().getPhotosImagePath()}">
-            <div th:switch="${!#strings.isEmpty(path)}"> 
+            <div th:switch="${!#strings.isEmpty(path)}">
               <img th:case="true" class=" custom-avatar rounded-circle"  th:src="@{${path}}">
               <img th:case="false" class=" custom-avatar rounded-circle"  th:src="@{images/user-default.png}">
             </div>
-          </div>   
+          </div>
           </li>
           </ul>
         </div>
