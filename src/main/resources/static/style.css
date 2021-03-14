@@ -106,6 +106,14 @@ nav input.form-control { width: 400px!important; }
     top: 50px;
 }
 
+.btn-block-register {
+    display: block;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    top: 30px;
+}
+
 .btn-block:hover {
     background-color: #457B9D;
     color: white;
@@ -124,7 +132,6 @@ nav input.form-control { width: 400px!important; }
 }
 
 .form-register {
-    padding-top: 10%;
     font-size: 14px;
     line-height: 20px;
     display: block;
@@ -261,8 +268,11 @@ nav input.form-control { width: 400px!important; }
     font-weight: bold;
 }
 
+
 .title-view {
     padding: 2%;
+    font-weight: 900;
+    font-size: xxx-large;
 }
 
 .card-img-overlay {
@@ -325,15 +335,8 @@ nav input.form-control { width: 400px!important; }
     color: red;
 }
 
-.rowView {
-    display: flex;
-    clear: both;
-    justify-content: center;
-    padding-top: 5%;
-}
-
-.card-deck-view {
-    margin: 50px;
+.card-deck {
+    margin: 40px auto;
 }
 
 .btn-admin {
@@ -357,8 +360,7 @@ input[type="file"] {
 .custom-file-upload {
     border: 1px solid #ccc;
     display: inline-block;
-    padding: 6px 12px;
-    padding-right: 6px;
+    padding: 6px 6px 6px 12px;
     cursor: pointer;
     white-space: nowrap;
 }

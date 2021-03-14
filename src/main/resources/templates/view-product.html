@@ -102,9 +102,9 @@
         </div>
 
 <div class="edit-product" id="edit-product"></div>
-<a href="#section1" class="btn">Check out our personalised recommendations!</a>
-<div class="rowView" id="section1">
-    <div class="card-deck-view" th:each="products : ${products}">
+<p>Check out our personalised recommendations!</p>
+<div class="row" id="section1">
+    <div class="card-deck card-deck-view" th:each="products : ${products}">
         <div class="card" style="width: 15rem;">
             <img class="card-img" th:src="@{/images/{image}.png(image=${products.getId()})}" alt="Product Image">
             <div class="card-img-overlay">
