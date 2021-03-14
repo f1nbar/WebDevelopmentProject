@@ -38,14 +38,11 @@ nav input.form-control { width: 400px!important; }
 
 .login-form form {
     margin-bottom: 15px;
-    background: #f7f7f7;
-    box-shadow: 0 2px 2px rgb(0 0 0 / 30%);
-    border-radius: 5%;
+    border-radius: 2%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 5%;
-}
-
-.login-form div {
-    padding: 10%;
+    width: 300px;
+    height: 400px;
 }
 
 
@@ -87,6 +84,54 @@ nav input.form-control { width: 400px!important; }
 .counter {
     float: right;
 }
+
+.text-center p {
+    padding: 15px 20px;
+    text-align: center;
+    border: 2px solid #f7f7f7;
+    border-radius: 5%;
+}
+
+.text-center a {
+    text-decoration: none;
+    color: #457B9D;
+    
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    top: 50px;
+}
+
+.btn-block:hover {
+    background-color: #457B9D;
+    color: white;
+}
+
+.form-group .form-control {
+    border-color: #A8DADC;
+}
+
+.form-login {
+    padding-top: 20%;
+    font-size: 14px;
+    line-height: 20px;
+    display: block;
+    width: 100%;
+}
+
+.form-register {
+    padding-top: 10%;
+    font-size: 14px;
+    line-height: 20px;
+    display: block;
+    width: 100%;
+}
+
+
 .counter input {
     width: 50px;
     border: 0;

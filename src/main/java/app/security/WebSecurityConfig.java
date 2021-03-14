@@ -26,20 +26,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.cors().and().csrf().disable()
-//                .authorizeRequests()
-//                    .antMatchers("/resources/**", "/registration","/code.js/**", "/style.css/**").permitAll()
-//                    .anyRequest().authenticated()
-//                    .and()
-//                .formLogin()
-//                    .loginPage("/login")
-//                    .permitAll()
-//                    .and()
-//                .logout()
-//                    .permitAll();
+        http.cors().and().csrf().disable()
+                .authorizeRequests()
+                    .antMatchers("/resources/**", "/registration","/code.js/**", "/style.css/**").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                .formLogin()
+                    .loginPage("/login")
+                    .permitAll()
+                    .and()
+                .logout()
+                    .permitAll();
 
-         http.authorizeRequests().antMatchers("/").permitAll(); //Uncomment to remove all security must comment out other http object
-         http.cors().and().csrf().disable();
+//         http.authorizeRequests().antMatchers("/").permitAll(); //Uncomment to remove all security must comment out other http object
+//         http.cors().and().csrf().disable();
 
     }
 
