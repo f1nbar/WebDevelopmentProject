@@ -1,21 +1,15 @@
 package app.services;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import app.entities.Role;
 import app.entities.User;
 import app.repositories.UserRepository;
-
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -23,16 +17,42 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    @Value("${spring.security.user.name}")
+    private String adminUserName;
+
+    @Value("${spring.security.user.password}")
+    private String adminPassword;
+
+    @Value("${spring.security.user.roles}")
+    private String adminRole;
+
+    private boolean isAdminCreated = false;
+
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
 
-        Set < GrantedAuthority > grantedAuthorities = new HashSet < > ();
-        for (Role role: user.getRoles()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+        if (username.equals(adminUserName) && !isAdminCreated) {
+
+            User user = new User();
+
+            user.setUsername(adminUserName);
+            user.setRole("ADMIN");
+            user.setPassword(adminPassword);
+            user.setPhotos("admin.png");
+            user.setPasswordConfirm(adminPassword);
+
+            User savedUser = userRepository.save(user);
+
+            isAdminCreated = true;
+
+            return savedUser;
         }
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+        User user = userRepository.findByUsername(username);
+
+        return user;
+
     }
+
 }

@@ -87,9 +87,10 @@
                 th:data2="${product.getProductName()}"
                 th:data3="${product.getPrice()}"
                 th:onclick="addToCart(this.getAttribute('data1'), this.getAttribute('data2'), this.getAttribute('data3'))">Add To Cart</Button>
-    </div>
-    <a type="button" class="btn btn-admin" th:href="@{|/products/remove/${product.getId()}|}">Remove Product</a>
-    <button onclick="toggle('hide-form')" type="button" class="btn btn-admin" >Edit Product</button>
+    </div  >
+
+    <a sec:authorize="hasRole('ROLE_ADMIN')" type="button" class="btn btn-admin" th:href="@{|/products/remove/${product.getId()}|}">Remove Product</a>
+    <button sec:authorize="hasRole('ROLE_ADMIN')" onclick="toggle('hide-form')" type="button" class="btn btn-admin" >Edit Product</button>
 </div>
 <div id="hide-form">
     <form class="form-inline view-form">

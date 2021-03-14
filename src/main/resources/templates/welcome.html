@@ -66,13 +66,16 @@
       </div>
     </div>
   </nav>
+
+  
     
     <p type="text" th:text="'Welcome to the page! ' + ${name}" style="font-size: xx-large;" > </p>
 
-    <form id="logoutForm" method="POST" action="/logout">
+    <form method="POST" action="/users/save" enctype="multipart/form-data">
         
+      <input type="file" name="image" accept="image/png, image/jpeg" />
         
-        <button type="submit" class="submit-button"> Log Out</button>
+        <button type="submit" class="submit-button"> Post</button>
     </form>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
