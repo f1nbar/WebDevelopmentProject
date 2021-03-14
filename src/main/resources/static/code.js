@@ -194,7 +194,7 @@ function productForm() {
         "    </script>\n" +
         " <script src=\"https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js\"></script>\n" +
         "<div class=\"formContainer\">\n" +
-        "<form>\n" +
+        "<form  >\n" +
         "  <div class=\"form-group\">\n" +
         "    <label for=\"name\">Product Name</label>\n" +
         "    <input type=\"text\"  required data-error=\"You have a name dont you?\" class=\"form-control\" id=\"name\" placeholder=\"Yummy Ice Cream\">\n" +
@@ -214,11 +214,14 @@ function productForm() {
         " customer believe they need the product, or just lorem ipsum :)\">\n" +
         "  </div>\n" +
         "</div>\n" +
-        // "  <div class=\"form-group\">\n" +
-        // "    <label for=\"exampleFormControlFile1\">Product Image</label>\n" +
-        // "    <input type=\"file\" class=\"form-control-file\" id=\"image\" name=\"image\" accept=\"image/png, image/jpeg\" >\n" +
-        // "  </div>\n"+
-        "    <button type=\"submit\" class=\"btn btn-admin\" onclick=\"createProduct()\">Create Product</button>\n" +
+        "  <div class=\"form-group\">\n" +
+        "    <label for=\"exampleFormControlFile1\">Product Image</label>\n" +
+        "    <input type=\"file\" class=\"form-control-file\" id=\"image\" name=\"image\" accept=\"image/png, image/jpeg\" >\n" +
+        "<label for=\"imgInp\" class=\"custom-file-upload\">Add Product Picture </label>" +
+        "<input id=\"imgInp\"  type=\"file\" name=\"image\" accept=\"image/png, image/jpeg\">" +
+      
+        "  </div>\n"+
+        "    <button class=\"btn btn-admin\" onclick=\"createProduct()\">Create Product</button>\n" +
         "</form>\n" +
         "</div>"
 
@@ -228,43 +231,57 @@ async function createProduct() {
     let inputName = document.getElementById("name").value;
     let inputPrice = document.getElementById("price").value;
     let inputVisible = false;
+    
     if (document.getElementById("visible").checked) {
         let inputVisible = true;
     }
-    let description = document.getElementById("description").value;
-    // const file = $('#image').get(0).files[0];
-    // const newFileName = inputName + "PNG";
+
+    var add = {
+
+    productName:inputName,
+    price:inputPrice,
+    isVisible: inputVisible
+
+    }
+    
     // const formData = new FormData();
     // formData.append('file', file, newFileName);
 
-    let add = new Product(inputName, inputPrice, inputVisible, description);
+    // let add = new Product(inputName, inputPrice, inputVisible,file);
+
     const url = "products/add";
     const xhr = new XMLHttpRequest();
     xhr.open("POST", url, false);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(add));
 
-   // const url2 = "products/image";
-    //
-    // const request = new Request(url2, {
-    //     method: 'POST',
-    //     body: formData,
-    // });
-    //
-    // fetch(request)
-    //     .then(res => res.json())
-    //     .then(res => console.log(res));
+    
+    var savedProduct = JSON.parse(xhr.response)
+
+    var file = $('#imgInp').get(0).files[0];
+    var newFileName = savedProduct.id + ".png";
+    var formData = new FormData();
+    formData.append('image', file, newFileName);
+
+   const url2 = "products/image";
+    
+    const request = new Request(url2, {
+        method: 'POST',
+        body: formData,
+    });
+    
+    fetch(request)
 }
 
-function editProduct(id, productName) {
+function editProduct(id) {
     console.log(id)
+    let inputName = document.getElementById("name").value;
     let inputPrice = document.getElementById("price").value;
     let inputVisible = false;
     if (document.getElementById("visible").checked) {
         let inputVisible = true;
     }
-    let description = document.getElementById("description").value;
-    let add = new Product(id, productName, inputPrice, inputVisible, description);
+    let add = new Product(id, inputName, inputPrice, inputVisible);
     const url = "/products/edit";
     const xhr = new XMLHttpRequest();
     xhr.open("POST", url, false);
@@ -274,19 +291,19 @@ function editProduct(id, productName) {
 }
 
 
-function Product(productName, price, isVisible, description) {
+function Product(productName, price, isVisible) {
     this.productName = productName;
     this.price = price;
     this.isVisible = isVisible;
-    this.description = description;
 }
 
-function Product(id, productName, price, isVisible, description){
+
+
+function Product(id, productName, price, isVisible){
     this.id = id;
     this.productName = productName;
     this.price = price;
     this.isVisible = isVisible;
-    this.description = description;
 }
 
 submitForms = function(){
@@ -308,5 +325,4 @@ const Search = () => {
         }
     }
 }
-
 

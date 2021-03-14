@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+
 public class SkuGenerator extends SequenceStyleGenerator{
 
     public static final String VALUE_PREFIX_PARAMETER = "valuePrefix";

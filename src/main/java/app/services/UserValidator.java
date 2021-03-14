@@ -9,6 +9,7 @@ import org.springframework.validation.Validator;
 import app.entities.User;
 
 
+
 @Component
 public class UserValidator implements Validator {
     @Autowired

@@ -22,7 +22,7 @@
       <button sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-admin btn-add" type="button" onclick="productForm()">Add Product</button>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
       <div class="collapse navbar-collapse justify-content-end" id ="navbarSupportedContent">
         <form class="form-inline my-0 my-lg-0">
@@ -70,14 +70,13 @@
             <div th:with="path=${#authentication.getPrincipal().getPhotosImagePath()}">
             <div th:switch="${!#strings.isEmpty(path)}"> 
               <img th:case="true" class=" custom-avatar rounded-circle"  th:src="@{${path}}">
-              <img th:case="false" class=" custom-avatar rounded-circle"  th:src="@{images/default-user.jpg}">
+              <img th:case="false" class=" custom-avatar rounded-circle"  th:src="@{images/user-default.png}">
             </div>
           </div>   
           </li>
         </ul>
       </div>
-    </div>
-  </nav>
+    </nav>
 
   <div class="container">
 
