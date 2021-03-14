@@ -27,18 +27,10 @@ public class User implements UserDetails {
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
 
-    
-  
-
     @OneToMany(mappedBy="customer")
     private Set<Order> orderHistory;
     @OneToOne
     private Order cart;
-
-    
-
-    
-    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

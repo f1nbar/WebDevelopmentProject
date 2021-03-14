@@ -1,6 +1,7 @@
 package app.entities;
 
 import app.services.SkuGenerator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class Product {
     private String description;
 
     @OneToMany(mappedBy="product")
+    @JsonIgnore
     Set<ProductOrder> orders;
 
     public String getId(){ return id;}

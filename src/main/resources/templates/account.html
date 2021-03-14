@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
-    <title>Document</title>
+    <title>Account</title>
 </head>
 <body>
 
@@ -81,13 +81,50 @@
 
       <div class="container">
 
-        <p th:text="${user.username}"></p>
-        <p th:text="${user.password}"></p>
-        <p th:text="${user.passwordConfirm}"></p>
+        <h1>Your Account</h1>
+        <div th:with="path=${#authentication.getPrincipal().getPhotosImagePath()}">
+          <div th:switch="${!#strings.isEmpty(path)}">
+            <img th:case="true" class=" custom-avatar rounded-circle"  th:src="@{${path}}">
+            <img th:case="false" class=" custom-avatar rounded-circle"  th:src="@{images/default-user.jpg}">
+          </div>
+        <p><b>Username: </b><span th:text="${user.username}"></span></p>
 
-        <!-- <img th:src="@{${#authentication.getPrincipal().getPhotosImagePath()}}"> -->
-
-        
+          <h3>Your Order History</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Date Ordered</th>
+              <th scope="col">State</th>
+              <th scope="col">Address</th>
+              <th scope="col">Products</th>
+            </tr>
+          </thead>
+          <tbody th:each="order: ${orderHistory}">
+            <tr>
+              <td><span th:text="${order.dateOrdered}"></span></td>
+              <td><span th:text="${order.state}"></span></td>
+              <td><span th:text="${order.address}"></span></td>
+              <td>
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Qty.</th>
+                  </tr>
+                  </thead>
+                  <tbody th:each="productOrder :${order.productOrders}">
+                    <tr>
+                      <td><img class="orderImage" th:src="|images/${productOrder.product.id}.png|"></td>
+                      <td><span th:text="${productOrder.product.productName}"></span></td>
+                      <td><span th:text="${productOrder.quantity}"></span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
       </div>
     

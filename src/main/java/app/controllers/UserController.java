@@ -1,6 +1,8 @@
 package app.controllers;
 
+import app.entities.Order;
 import app.entities.User;
+import app.repositories.OrderRepository;
 import app.repositories.UserRepository;
 import app.services.FileUploadUtil;
 import app.services.UserService;
@@ -8,6 +10,8 @@ import app.services.UserValidator;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -39,6 +43,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
@@ -60,6 +67,14 @@ public class UserController {
             user = userRepository.findByUsername(userName);
         }
 
+        List<Order> orderHistory = new ArrayList<Order>();
+        for(Order order:orderRepository.findAll()) {
+            if (order.getCustomer().getId().equals(user.getId())) {
+                orderHistory.add(order);
+            }
+        }
+
+        model.addAttribute("orderHistory", orderHistory);
 
         System.out.println(user.getPhotosImagePath());
 

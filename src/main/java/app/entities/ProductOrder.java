@@ -1,6 +1,7 @@
 package app.entities;
 
 import app.keys.ProductOrderKey;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,6 +22,7 @@ class ProductOrder {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     Order order;
 
     public ProductOrder() { }
