@@ -37,10 +37,18 @@ public class OrderController {
         return orderRepository.findAll();
     }
 
-    @GetMapping("/orders/setShipped")
-    public @ResponseBody Order setShipped(@RequestParam int orderId) {
+    @GetMapping("/orders/setConfirmed")
+    public @ResponseBody Order setConfirmed(@RequestParam int orderId) {
         Order order = orderRepository.findById(orderId).get();
-        order.setState("Shipped");
+        order.setState("Confirmed");
+        orderRepository.save(order);
+        return order;
+    }
+
+    @GetMapping("/orders/setDelivered")
+    public @ResponseBody Order setDelivered(@RequestParam int orderId) {
+        Order order = orderRepository.findById(orderId).get();
+        order.setState("Delivered");
         orderRepository.save(order);
         return order;
     }
