@@ -164,15 +164,16 @@ function productForm() {
     document.getElementById("create-product").innerHTML = "<div class=\"title\" id=\"create-product\">\n" +
         "<script src=\"/code.js\">\n" +
         "    </script>\n" +
+        " <script src=\"https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js\"></script>\n" +
         "<div class=\"formContainer\">\n" +
         "<form>\n" +
         "  <div class=\"form-group\">\n" +
         "    <label for=\"name\">Product Name</label>\n" +
-        "    <input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Yummy Ice Cream\">\n" +
+        "    <input type=\"text\"  required data-error=\"You have a name dont you?\" class=\"form-control\" id=\"name\" placeholder=\"Yummy Ice Cream\">\n" +
         "  </div>\n" +
         "  <div class=\"form-group\">\n" +
         "    <label for=\"price\">Price</label>\n" +
-        "    <input type=\"number\" class=\"form-control\" id=\"price\" step=\".01\" placeholder=\"€69.99\">\n" +
+        "    <input type=\"number\" required data-error=\"Name your price\" class=\"form-control\" id=\"price\" step=\".01\" placeholder=\"€69.99\">\n" +
         "  </div>\n" +
         "  <div class=\"form-check\">\n" +
         "  <input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"visible\">\n" +
@@ -181,7 +182,7 @@ function productForm() {
         "  </label>\n" +
         "  <div class=\"form-group\">\n" +
         "    <label for=\"description\">Product Description</label>\n" +
-        "    <input type=\"text\" class=\"form-control\" id=\"description\" placeholder=\"Convincing argument to make" +
+        "    <input type=\"text\" required data-error=\"Make an effort!\" class=\"form-control\" id=\"description\" placeholder=\"Convincing argument to make" +
         " customer believe they need the product, or just lorem ipsum :)\">\n" +
         "  </div>\n" +
         "</div>\n" +
