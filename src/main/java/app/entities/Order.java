@@ -31,6 +31,8 @@ public class Order implements Serializable {
         this.orderTotal = orderTotal;
     }
 
+    public Order() { }
+
     public int getOrderId() {
         return id;
     }

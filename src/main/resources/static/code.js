@@ -116,9 +116,9 @@ function pay() {
         }
     // Get address from page
     var address = ""
-    address += document.getElementById("AL1").value + ",\n"
-    address += document.getElementById("AL2").value + ",\n"
-    address += document.getElementById("town").value + ",\n"
+    address += document.getElementById("AL1").value + ","
+    address += document.getElementById("AL2").value + ","
+    address += document.getElementById("town").value + ","
     address += document.getElementById("county").value
     // Get items list
     var cart = JSON.parse(localStorage.getItem("cart"))
@@ -133,6 +133,7 @@ function pay() {
     var user = {}
     userRequest.onreadystatechange = () => {
         if (userRequest.readyState != 4) return;
+        console.log(userRequest.responseText)
         user = JSON.parse(userRequest.responseText)
         console.log(user)
         var checkoutRequest = new XMLHttpRequest()
@@ -143,7 +144,7 @@ function pay() {
         }
         checkoutRequest.open('POST', "/checkout/?customerId=" + user.id)
         checkoutRequest.setRequestHeader('Content-type', 'application/json')
-        checkoutRequest.send(items)
+        checkoutRequest.send(JSON.stringify(items))
     }
     userRequest.open('GET', "/user/details")
     userRequest.send()

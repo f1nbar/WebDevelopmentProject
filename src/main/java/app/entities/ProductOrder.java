@@ -9,18 +9,21 @@ import java.io.Serializable;
 public
 class ProductOrder {
 
-    @EmbeddedId
-    ProductOrderKey id;
+//    @EmbeddedId
+//    ProductOrderKey id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
 
     @ManyToOne
-    @MapsId("productId")
     @JoinColumn(name = "product_id")
     Product product;
 
     @ManyToOne
-    @MapsId("orderId")
     @JoinColumn(name = "order_id")
     Order order;
+
+    public ProductOrder() { }
 
     public ProductOrder(Product product, Order order, int quantity) {
         this.product = product;
@@ -30,11 +33,11 @@ class ProductOrder {
 
     int quantity;
 
-    public ProductOrderKey getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(ProductOrderKey id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
