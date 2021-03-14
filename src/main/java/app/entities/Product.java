@@ -77,10 +77,11 @@ public class Product {
 
     }
 
-    public Product(String productName, float price, Boolean isVisible) {
+    public Product(String productName, float price, Boolean isVisible, String description) {
         this.productName = productName;
         this.price = price;
         this.isVisible = isVisible;
+        this.description = description;
     }
 
 }

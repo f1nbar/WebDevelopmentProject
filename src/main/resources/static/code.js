@@ -179,6 +179,11 @@ function productForm() {
         "  <label class=\"form-check-label\" for=\"defaultCheck1\">\n" +
         "    Visible\n" +
         "  </label>\n" +
+        "  <div class=\"form-group\">\n" +
+        "    <label for=\"description\">Product Description</label>\n" +
+        "    <input type=\"text\" class=\"form-control\" id=\"description\" placeholder=\"Convincing argument to make" +
+        " customer believe they need the product, or just lorem ipsum :)\">\n" +
+        "  </div>\n" +
         "</div>\n" +
         // "  <div class=\"form-group\">\n" +
         // "    <label for=\"exampleFormControlFile1\">Product Image</label>\n" +
@@ -197,12 +202,13 @@ async function createProduct() {
     if (document.getElementById("visible").checked) {
         let inputVisible = true;
     }
+    let description = document.getElementById("description").value;
     // const file = $('#image').get(0).files[0];
     // const newFileName = inputName + "PNG";
     // const formData = new FormData();
     // formData.append('file', file, newFileName);
 
-    let add = new Product(inputName, inputPrice, inputVisible);
+    let add = new Product(inputName, inputPrice, inputVisible, description);
     const url = "products/add";
     const xhr = new XMLHttpRequest();
     xhr.open("POST", url, false);
@@ -221,15 +227,15 @@ async function createProduct() {
     //     .then(res => console.log(res));
 }
 
-function editProduct(id) {
+function editProduct(id, productName) {
     console.log(id)
-    let inputName = document.getElementById("name").value;
     let inputPrice = document.getElementById("price").value;
     let inputVisible = false;
     if (document.getElementById("visible").checked) {
         let inputVisible = true;
     }
-    let add = new Product(id, inputName, inputPrice, inputVisible);
+    let description = document.getElementById("description").value;
+    let add = new Product(id, productName, inputPrice, inputVisible, description);
     const url = "/products/edit";
     const xhr = new XMLHttpRequest();
     xhr.open("POST", url, false);
@@ -239,17 +245,19 @@ function editProduct(id) {
 }
 
 
-function Product(productName, price, isVisible) {
+function Product(productName, price, isVisible, description) {
     this.productName = productName;
     this.price = price;
     this.isVisible = isVisible;
+    this.description = description;
 }
 
-function Product(id, productName, price, isVisible){
+function Product(id, productName, price, isVisible, description){
     this.id = id;
     this.productName = productName;
     this.price = price;
     this.isVisible = isVisible;
+    this.description = description;
 }
 
 submitForms = function(){
