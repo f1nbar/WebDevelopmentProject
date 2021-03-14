@@ -55,32 +55,35 @@ public class UserController {
 
     @GetMapping("/account")
     public String account(Model model, HttpServletRequest req) {
-
         String userName = req.getUserPrincipal().getName();
-
-        System.out.println(userName);
-        
 
         User user = null;
 
         if (!userName.isBlank()) {
             user = userRepository.findByUsername(userName);
         }
-
-        List<Order> orderHistory = new ArrayList<Order>();
-        for(Order order:orderRepository.findAll()) {
-            if (order.getCustomer().getId().equals(user.getId())) {
-                orderHistory.add(order);
+        if (!req.isUserInRole("ROLE_ADMIN")) {
+            List<Order> orderHistory = new ArrayList<Order>();
+            for(Order order:orderRepository.findAll()) {
+                if (order.getCustomer().getId().equals(user.getId())) {
+                    orderHistory.add(order);
+                }
             }
+
+            model.addAttribute("user", user);
+
+            model.addAttribute("orderHistory", orderHistory);
+
+            return "account";
+        } else {
+            List<Order> orders = orderRepository.findAll();
+
+            model.addAttribute("user", user);
+
+            model.addAttribute("orders", orders);
+
+            return "admin";
         }
-
-        model.addAttribute("orderHistory", orderHistory);
-
-        System.out.println(user.getPhotosImagePath());
-
-        model.addAttribute("user", user);
-
-        return "account";
     }
 
     @GetMapping("/user/details")

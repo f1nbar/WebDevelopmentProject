@@ -150,8 +150,35 @@ function pay() {
     userRequest.send()
 }
 
+function confirmOrder(id) {
+    var req = new XMLHttpRequest()
+    req.onreadystatechange = () => {
+        if (req.readyState != 4) return;
+        window.location.reload(true);
+    }
+    req.open('GET', "/orders/setConfirmed/?orderId=" + id)
+    req.send()
+}
 
+function deliverOrder(id) {
+    var req = new XMLHttpRequest()
+    req.onreadystatechange = () => {
+        if (req.readyState != 4) return;
+        window.location.reload(true);
+    }
+    req.open('GET', "/orders/setDelivered/?orderId=" + id)
+    req.send()
+}
 
+function cancelOrder(id) {
+    var req = new XMLHttpRequest()
+    req.onreadystatechange = () => {
+        if (req.readyState != 4) return;
+        window.location.reload(true);
+    }
+    req.open('GET', "/orders/setCancelled/?orderId=" + id)
+    req.send()
+}
 
 function toggle(id) {
     var state = document.getElementById(id).style.display;

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+    <title>Account</title>
+</head>
+<body>
+
+    <nav class="navbar-custom navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/">Remazon</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            <button sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-admin btn-add" type="button" onclick="productForm()">Add Product</button>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <div class="collapse navbar-collapse justify-content-end" id ="navbarSupportedContent">
+                <form class="form-inline my-0 my-lg-0">
+                    <input class="searchbox-input form-control" id="searchbox-input" type="search"
+                           placeholder="Case Sensitive Search...Be Precise ;)"
+                           aria-label="Search" onkeyup="Search()">
+                </form>
+            </div>
+
+            <div class="collapse navbar-collapse justify-content-end"
+                 id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li sec:authorize="!isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/registration">Register</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" href="/account">Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle" href="#" id="Cart"
+                           role="button" data-bs-display="static" data-toggle="dropdown">
+                            Cart
+                        </a>
+                        <div class="dropdown-menu dropdown" aria-labelledby="navbarDropdown">
+                            <h2>Your Cart</h2>
+                            <table id="cartTable">
+                                <tr class="cartHeader">
+                                    <td class="cartItemField">Item</td>
+                                    <td class="cartPriceField">Price</td>
+                                    <td class="cartQuantityField">Quantity</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"><Button onClick="checkout()" class="btn btn-danger">Checkout</Button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="avatar rounded-circle">
+                        <div th:with="path=${#authentication.getPrincipal().getPhotosImagePath()}">
+                            <div th:switch="${!#strings.isEmpty(path)}">
+                                <img th:case="true" class=" custom-avatar rounded-circle"  th:src="@{${path}}">
+                                <img th:case="false" class=" custom-avatar rounded-circle"  th:src="@{images/default-user.jpg}">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <h1>Admin Controls</h1>
+        <div th:with="path=${#authentication.getPrincipal().getPhotosImagePath()}">
+            <div th:switch="${!#strings.isEmpty(path)}">
+                <img th:case="true" class=" custom-avatar rounded-circle"  th:src="@{${path}}">
+                <img th:case="false" class="custom-avatar rounded-circle"  th:src="@{images/default-user.jpg}">
+            </div>
+        </div>
+        <p><b>Username: </b><span th:text="${user.username}"></span></p>
+
+        <h3>Order Controls</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Date Ordered</th>
+                <th scope="col">State</th>
+                <th scope="col">Address</th>
+                <th scope="col">Controls</th>
+                <th scope="col">Products</th>
+            </tr>
+            </thead>
+            <tbody th:each="order: ${orders}">
+            <tr>
+                <td><span th:text="${order.dateOrdered}"></span></td>
+                <td><span th:text="${order.state}"></span></td>
+                <td><span th:text="${order.address}"></span></td>
+                <td>
+                    <Button th:onclick="|confirmOrder(${order.orderId})|">Mark as Confirmed</Button>
+                    <Button th:onclick="|deliverOrder(${order.orderId})|">Mark as Delivered</Button>
+                    <Button th:onclick="|cancelOrder(${order.orderId})|">Mark as Cancelled</Button>
+                </td>
+                <td>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Qty.</th>
+                        </tr>
+                        </thead>
+                        <tbody th:each="productOrder :${order.productOrders}">
+                        <tr>
+                            <td><img class="orderImage" th:src="|images/${productOrder.product.id}.png|"></td>
+                            <td><span th:text="${productOrder.product.productName}"></span></td>
+                            <td><span th:text="${productOrder.quantity}"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

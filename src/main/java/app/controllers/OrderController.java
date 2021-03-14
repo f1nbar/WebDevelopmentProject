@@ -88,7 +88,7 @@ public class OrderController {
         LocalDateTime now = LocalDateTime.now();
         String dateOrdered = dtf.format(now);
         User customer = userRepository.findById(customerId).get();
-        Order order = new Order(customer, address, "Confirmed", dateOrdered, orderTotal);
+        Order order = new Order(customer, address, "New", dateOrdered, orderTotal);
         orderRepository.save(order);
         for (int i=0; i<products.size(); i++) {
             ProductOrder productOrder = new ProductOrder(products.get(i), order, quantities.get(i));
