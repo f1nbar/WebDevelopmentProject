@@ -84,7 +84,7 @@
     <div th:with="path=${#authentication.getPrincipal().getPhotosImagePath()}">
       <div th:switch="${!#strings.isEmpty(path)}">
         <img th:case="true" class=" custom-avatar rounded-circle"  th:src="@{${path}}">
-        <img th:case="false" class=" custom-avatar rounded-circle"  th:src="@{images/default-user.jpg}">
+        <img th:case="false" class=" custom-avatar rounded-circle"  th:src="@{images/user-default.png}">
       </div>
     </div>
     <p><b>Username: </b><span th:text="${user.username}"></span></p>

@@ -1,7 +1,5 @@
 package app.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -14,7 +12,7 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
 
-    @OneToMany(mappedBy="order")
+    @OneToMany(mappedBy = "order")
     protected Set<ProductOrder> productOrders;
 
     @ManyToOne
@@ -33,7 +31,8 @@ public class Order implements Serializable {
         this.orderTotal = orderTotal;
     }
 
-    public Order() { }
+    public Order() {
+    }
 
     public int getOrderId() {
         return id;
@@ -54,7 +53,6 @@ public class Order implements Serializable {
     public User getCustomer() {
         return customer;
     }
-    
 
     public void setCustomer(User customer) {
         this.customer = customer;

@@ -26,7 +26,7 @@ public class ProductController {
 
     @GetMapping("/")
     public String index(Model model, HttpServletRequest req) {
-        if(!req.isUserInRole("ROLE_ADMIN")) {
+        if (!req.isUserInRole("ROLE_ADMIN")) {
             List<Product> products = productRepository.findAll();
             List<Product> visibleProducts = new ArrayList<>();
             for (int i = 0; i < productRepository.count(); i++) {
@@ -35,26 +35,20 @@ public class ProductController {
                 }
             }
             model.addAttribute("products", visibleProducts);
-        }
-        else
-            model.addAttribute("products", productRepository.findAll()); //if admin we can see hidden products
+        } else
+            model.addAttribute("products", productRepository.findAll()); // if admin we can see hidden products
         return "index";
     }
 
     @PostMapping(value = "products/add")
     @ResponseBody
-    public Product addProduct(@RequestBody Product product, Model model){
-
+    public Product addProduct(@RequestBody Product product, Model model) {
 
         System.out.println("This is working");
 
-
-        Product savedProduct =productRepository.save(product);
-
+        Product savedProduct = productRepository.save(product);
 
         model.addAttribute("person", productRepository.findAll());
-
-
 
         // return "added" + product.getProductName();
 
@@ -63,23 +57,23 @@ public class ProductController {
 
     @PostMapping(value = "products/image")
     @ResponseBody
-    public void addImage(@RequestParam("image")MultipartFile multipartFile) throws IOException {
+    public void addImage(@RequestParam("image") MultipartFile multipartFile) throws IOException {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        FileUploadUtil.saveFile("src/main/resources/static/images",fileName,multipartFile);
+        FileUploadUtil.saveFile("src/main/resources/static/images", fileName, multipartFile);
     }
-
 
     @GetMapping(value = "/products/view/{id}")
     public String view(Model model, HttpServletRequest request) {
         String url = (request.getRequestURI());
         String productID = url.substring(15);
-        model.addAttribute("product",productRepository.getOne(productID));
-        model.addAttribute("products", productRepository.findSuggestions(productRepository.getOne(productID), productRepository));
+        model.addAttribute("product", productRepository.getOne(productID));
+        model.addAttribute("products",
+                productRepository.findSuggestions(productRepository.getOne(productID), productRepository));
         return "view-product";
     }
 
     @GetMapping(value = "/products/remove/{id}")
-    public String removeProduct(HttpServletRequest request){
+    public String removeProduct(HttpServletRequest request) {
         String url = (request.getRequestURI());
         String productID = url.substring(17);
         productRepository.deleteById(productID);
@@ -88,7 +82,7 @@ public class ProductController {
     }
 
     @PostMapping(value = "/products/edit")
-    public String editProduct(@RequestBody Product product){
+    public String editProduct(@RequestBody Product product) {
         System.out.println("hello");
         productRepository.save(product);
         return "redirect:/";

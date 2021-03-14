@@ -4,7 +4,6 @@ import app.entities.Order;
 import app.entities.Product;
 import app.entities.ProductOrder;
 import app.entities.User;
-import app.keys.ProductOrderKey;
 import app.repositories.OrderRepository;
 import app.repositories.ProductOrderRepository;
 import app.repositories.ProductRepository;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class OrderController {
@@ -64,7 +61,7 @@ public class OrderController {
     @GetMapping("/orderHistory")
     public @ResponseBody List<Order> getOrderHistory(@RequestParam Long customerId) {
         List<Order> orderHistory = new ArrayList<Order>();
-        for(Order order:orderRepository.findAll()) {
+        for (Order order : orderRepository.findAll()) {
             if (order.getCustomer().getId().equals(customerId)) {
                 orderHistory.add(order);
             }
@@ -83,7 +80,7 @@ public class OrderController {
         int orderTotal = 0;
         List<Product> products = new ArrayList<Product>();
         List<Integer> quantities = new ArrayList<Integer>();
-        for (String str:orderInfo) {
+        for (String str : orderInfo) {
             String productId = str.split("_")[0];
             if (productRepository.findById(productId).isPresent()) {
                 Product product = productRepository.findById(productId).get();
@@ -98,7 +95,7 @@ public class OrderController {
         User customer = userRepository.findById(customerId).get();
         Order order = new Order(customer, address, "New", dateOrdered, orderTotal);
         orderRepository.save(order);
-        for (int i=0; i<products.size(); i++) {
+        for (int i = 0; i < products.size(); i++) {
             ProductOrder productOrder = new ProductOrder(products.get(i), order, quantities.get(i));
             productOrderRepository.save(productOrder);
         }
