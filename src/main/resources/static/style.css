@@ -184,7 +184,7 @@ nav input.form-control { width: 400px!important; }
     max-height: 90px;
 
     /* This image is 687 wide by 1024 tall, similar to your aspect ratio */
-    background-image: url('images/photo1.jpg');
+    background-image: url('images/user-default.png');
     
     /* make a square container */
     width: 150px;

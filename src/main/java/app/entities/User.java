@@ -27,7 +27,7 @@ public class User implements UserDetails {
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
 
-    @OneToMany(mappedBy="customer")
+    @OneToMany(mappedBy = "customer")
     private Set<Order> orderHistory;
     @OneToOne
     private Order cart;
@@ -93,23 +93,25 @@ public class User implements UserDetails {
 
     @Transient
     public String getPhotosImagePath() {
-        if (photos == null || id == null) return null;
+        if (photos == null || id == null)
+            return null;
 
-        if(role.equals("ADMIN")) return "/images/" + photos;
-         
-        return "/images/user_photos/" + id + "/" + photos;
+        if (role.equals("ADMIN"))
+            return "/images/" + photos;
+
+        return "/images/user_photos/" + photos;
     }
 
     @Override
-    @ElementCollection(targetClass=String.class)
+    @ElementCollection(targetClass = String.class)
     @Transient
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-            List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
-    
-            list.add(new SimpleGrantedAuthority("ROLE_" + role));
-    
-            return list;
+        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
+
+        list.add(new SimpleGrantedAuthority("ROLE_" + role));
+
+        return list;
     }
 
     public boolean isIsAccountNonExpired() {
@@ -172,7 +174,4 @@ public class User implements UserDetails {
         return true;
     }
 
-    
-    
- 
 }

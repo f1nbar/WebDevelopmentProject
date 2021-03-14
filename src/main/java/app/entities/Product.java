@@ -24,16 +24,20 @@ public class Product {
     private boolean isVisible;
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
+    
 
     @OneToMany(mappedBy="product")
     @JsonIgnore
     Set<ProductOrder> orders;
+
+
 
     public String getId(){ return id;}
 
     public String getProductId() {
         return id;
     }
+    
 
     public void setProductId(String productId) {
         this.id = productId;

@@ -26,7 +26,7 @@ public class ProductController {
 
     @GetMapping("/")
     public String index(Model model, HttpServletRequest req) {
-        if(req.isUserInRole("ROLE_ADMIN")) {
+        if(!req.isUserInRole("ROLE_ADMIN")) {
             List<Product> products = productRepository.findAll();
             List<Product> visibleProducts = new ArrayList<>();
             for (int i = 0; i < productRepository.count(); i++) {
@@ -43,17 +43,29 @@ public class ProductController {
 
     @PostMapping(value = "products/add")
     @ResponseBody
-    public String addProduct(@RequestBody Product product, Model model){
-        productRepository.save(product);
+    public Product addProduct(@RequestBody Product product, Model model){
+
+
+        System.out.println("This is working");
+
+
+        Product savedProduct =productRepository.save(product);
+
+
         model.addAttribute("person", productRepository.findAll());
-        return "added" + product.getProductName();
+
+
+
+        // return "added" + product.getProductName();
+
+        return savedProduct;
     }
 
     @PostMapping(value = "products/image")
-    public String addImage(@RequestParam("image")MultipartFile multipartFile) throws IOException {
+    @ResponseBody
+    public void addImage(@RequestParam("image")MultipartFile multipartFile) throws IOException {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        FileUploadUtil.saveFile("/images",fileName,multipartFile);
-        return "Success";
+        FileUploadUtil.saveFile("src/main/resources/static/images",fileName,multipartFile);
     }
 
 
@@ -81,5 +93,7 @@ public class ProductController {
         productRepository.save(product);
         return "redirect:/";
     }
+
+   
 
 }
