@@ -2,6 +2,8 @@
 
 Welcome to Remazon, our E-commerce application!
 
+![](https://gitlab.com/comp30860/2021/distributed-imagination/-/blob/master/wireframe/home_screen.png)
+
 [Demonstration Video]()
 
 [Wireframe](https://gitlab.com/comp30860/2021/distributed-imagination/-/tree/master/wireframe)
