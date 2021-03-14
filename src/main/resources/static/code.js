@@ -4,10 +4,12 @@ function addToCart(productId, productName, price) {
     var total = parseInt(localStorage.getItem("total"))
     var productInfo = {}
     // Check if cart has been initialised yet
-    if (cart == null)
+    if (cart == "null" || cart == "[object Object]") {
         cart = {}
-    else
+    } else {
         cart = JSON.parse(cart)
+    }
+
 
     // Check if given item already exists in cart
     if (cart[productId] == null) {
@@ -29,16 +31,19 @@ function addToCart(productId, productName, price) {
         var button = document.createElement("button")
         button.innerHTML = "-"
         button.setAttribute("onclick", "decItem('" + productId + "')")
+        button.setAttribute("class", "btn")
         row.insertCell(3).appendChild(button)
         row.insertCell(4).innerHTML = productInfo.quantity
         var button = document.createElement("button")
         button.innerHTML = "+"
         button.setAttribute("onclick", "incItem('" + productId + "')")
+        button.setAttribute("class", "btn")
         row.insertCell(5).appendChild(button)
         row.insertCell(6).innerHTML = (productInfo.price*productInfo.quantity).toFixed(2)
         var button = document.createElement("button")
         button.innerHTML = "Remove"
         button.setAttribute("onclick", "removeFromCart('" + productId + "')")
+        button.setAttribute("class", "btn")
         row.insertCell(7).appendChild(button)
     } else {
         productInfo = cart[productId]
@@ -141,16 +146,19 @@ function initOrder() {
         var button = document.createElement("button")
         button.innerHTML = "-"
         button.setAttribute("onclick", "decItem('" + productId + "')")
+        button.setAttribute("class", "btn")
         row.insertCell(3).appendChild(button)
         row.insertCell(4).innerHTML = productInfo.quantity
         var button = document.createElement("button")
         button.innerHTML = "+"
         button.setAttribute("onclick", "incItem('" + productId + "')")
+        button.setAttribute("class", "btn")
         row.insertCell(5).appendChild(button)
         row.insertCell(6).innerHTML = (productInfo.price*productInfo.quantity).toFixed(2)
         var button = document.createElement("button")
         button.innerHTML = "Remove"
         button.setAttribute("onclick", "removeFromCart('" + productId + "')")
+        button.setAttribute("class", "btn")
         row.insertCell(7).appendChild(button)
         total += (productInfo.price*productInfo.quantity)
     }
@@ -212,8 +220,13 @@ function pay() {
         var checkoutRequest = new XMLHttpRequest()
         checkoutRequest.onreadystatechange = () => {
             if (checkoutRequest.readyState != 4) return;
-            // TODO: Show Pop Up
-            console.log(checkoutRequest.responseText)
+            localStorage.setItem("cart", null)
+            localStorage.setItem("total", 0)
+            var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
+              keyboard: false
+            })
+            myModal.show()
+
         }
         checkoutRequest.open('POST', "/checkout/?customerId=" + user.id)
         checkoutRequest.setRequestHeader('Content-type', 'application/json')
@@ -374,4 +387,20 @@ submitForms = function(){
     document.getElementById("form1").submit();
     document.getElementById("form2").submit();
 }
+
+const Search = () => {
+    const input = document.querySelector(".searchbox-input");
+    const cards = document.getElementsByClassName("card");
+    let filter = input.value;
+
+    for (let i = 0; i < cards.length; i++) {
+        let title = cards[i].querySelector(".card-title");
+        if (title.innerText.indexOf(filter) > -1) {
+            cards[i].classList.remove("d-none")
+        } else {
+            cards[i].classList.add("d-none")
+        }
+    }
+}
+
 
