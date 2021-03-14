@@ -22,6 +22,7 @@ public class SkuGenerator extends SequenceStyleGenerator{
     public static final String VALUE_PREFIX_DEFAULT = "";
     private String valuePrefix;
 
+    
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object obj) throws HibernateException {
         Connection connection = session.connection();

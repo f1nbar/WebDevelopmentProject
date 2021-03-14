@@ -50,6 +50,7 @@ public class Order implements Serializable {
     public User getCustomer() {
         return customer;
     }
+    
 
     public void setCustomer(User customer) {
         this.customer = customer;

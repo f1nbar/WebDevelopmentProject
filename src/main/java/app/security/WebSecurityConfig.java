@@ -3,6 +3,7 @@ package app.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -24,23 +26,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.cors().and().csrf().disable()
-//                .authorizeRequests()
-//                    .antMatchers("/resources/**", "/registration","/code.js/**", "/style.css/**").permitAll()
-//                    .anyRequest().authenticated()
-//                    .and()
-//                .formLogin()
-//                    .loginPage("/login")
-//                    .permitAll()
-//                    .and()
-//                .logout()
-//                    .permitAll();
 
-         http.authorizeRequests().antMatchers("/").permitAll(); //Uncomment to remove all security must comment out other http object
-         http.cors().and().csrf().disable();
+        // http.authorizeRequests().antMatchers(HttpMethod.GET, "/js/**", "/css/**", "/img/**" ,"/pressiplus", "/public/**", "/index", "/", "/login").permitAll();
 
+       http.cors().and().csrf().disable()
+               .authorizeRequests()
+                   .antMatchers("/images/**","/resources/**", "/registration","/code.js/**", "/style.css/**").permitAll()
+                   .anyRequest().authenticated()
+                   .and()
+               .formLogin()
+                   .loginPage("/login")
+                   .permitAll()
+                   .and()
+               .logout()
+                   .permitAll();
+
+        //  http.authorizeRequests().antMatchers("/").permitAll(); //Uncomment to remove all security must comment out other http object
     }
 
     @Autowired

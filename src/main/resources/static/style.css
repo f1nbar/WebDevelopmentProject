@@ -104,6 +104,49 @@ nav input.form-control { width: 400px!important; }
     user-select: none;
 }
 
+
+.custom-avatar {
+    max-width: 45px;
+    max-height: 45px;
+
+    /* This image is 687 wide by 1024 tall, similar to your aspect ratio */
+    background-image: url('images/user-default.png');
+    
+    /* make a square container */
+    width: 150px;
+    height: 150px;
+
+    /* fill the container, preserving aspect ratio, and cropping to fit */
+    background-size: cover;
+
+    /* center the image vertically and horizontally */
+    background-position: top center;
+
+    /* round the edges to a circle with border radius 1/2 container size */
+    border-radius: 50%;
+}
+
+
+.custom-avatar-reg {
+    max-width: 90px;
+    max-height: 90px;
+
+    /* This image is 687 wide by 1024 tall, similar to your aspect ratio */
+    background-image: url('images/photo1.jpg');
+    
+    /* make a square container */
+    width: 150px;
+    height: 150px;
+
+    /* fill the container, preserving aspect ratio, and cropping to fit */
+    background-size: cover;
+
+    /* center the image vertically and horizontally */
+    background-position: top center;
+
+    /* round the edges to a circle with border radius 1/2 container size */
+    border-radius: 50%;
+}
 .cartHeader {
     font-weight: bold;
 }
@@ -260,6 +303,19 @@ nav input.form-control { width: 400px!important; }
 
 #hide-form {
     display: none;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    padding-right: 6px;
+    cursor: pointer;
+    white-space: nowrap;
 }
 
 .navbar-brand:hover {
