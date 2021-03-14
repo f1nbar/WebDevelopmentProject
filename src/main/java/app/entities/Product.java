@@ -21,6 +21,8 @@ public class Product {
     private float price;
     @Column(name = "isvisible")
     private boolean isVisible;
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
 
     @OneToMany(mappedBy="product")
     Set<ProductOrder> orders;
@@ -66,6 +68,10 @@ public class Product {
     public void setOrders(Set<ProductOrder> orders) {
         this.orders = orders;
     }
+
+    public void setDescription(String description) { this.description = description; }
+
+    public String getDescription(){ return this.description;}
 
     public Product(){
 
