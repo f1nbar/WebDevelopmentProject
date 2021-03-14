@@ -18,7 +18,7 @@
           aria-controls="navbarSupportedContent" aria-expanded="false"
           aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
-    <button class="btn btn-admin btn-add" type="button" onclick="productForm()">Add Product</button>
+    <button sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-admin btn-add" type="button" onclick="productForm()">Add Product</button>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -72,8 +72,18 @@
 
 <div class="text-center content login-form">
 
-  <form action="/registration" method="post" class="">
+  <form action="/registration" method="post" class="" enctype="multipart/form-data" >
     <h2 class="text-center">Register</h2>
+   
+    
+    <img id="blah" src="images/user-default.png"  class="custom-avatar-reg rounded-circle"/>
+    <div class="form-group justify-content-center">
+    <label for="imgInp" class="custom-file-upload">
+        Add Profile Picture
+    </label>
+    <input id="imgInp"  type="file" name="image" accept="image/png, image/jpeg" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+    </div>
+
     <div class="form-group justify-content-center">
       <input type="text" name="username" class="form-control"
         placeholder="Username" required="required">
