@@ -113,6 +113,7 @@
 </div>
 <div id="hide-form">
     <form class="form-inline view-form">
+        <label for="price">Change Name</label><input type="text" step=".01" class="form-control" id="name" th:value="${product.ProductName}">
         <label for="price">Change Price</label><input type="number" step=".01" class="form-control" id="price" th:value="${product.getPrice()}">
         <label for="visible">Change Visibility</label><input type="checkbox" class="form-check-input" id="visible" th:value="${product.isVisible()}">
         <label for="description">Edit Description</label><input type="text" class="form-control" id="description" th:value="${product.getDescription()}">
