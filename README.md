@@ -1,10 +1,19 @@
-# Distributed Imagination - REMAZON
+# Web Development Project 
 
-Welcome to Remazon, our E-commerce application!
+Example E-commerce application using Java Spring MVC, Maven, Bootstrap and Docker.
 
-![](wireframe/home_screen.png)
+Features:
+- Search
+- User account creation with password hashing
+- Functional Shopping Cart
+- Order History, 
+- Payment Flow Emulation
+- Inventory Management (Admin)
+- Order Management (Admin)
+- Custom Product SKU Generator using SequenceStyleGenerator
+- Product Reccomendation
 
-[Demonstration Video]()
+ [](wireframe/home_screen.png)
 
 [Wireframe](https://gitlab.com/comp30860/2021/distributed-imagination/-/tree/master/wireframe)
 
